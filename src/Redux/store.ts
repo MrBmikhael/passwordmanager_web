@@ -5,10 +5,4 @@ import rootReducer from './Reducers'
 
 const loggerMiddleware = createLogger()
 
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(
-    applyMiddleware(
-      loggerMiddleware
-    ))
-);
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(loggerMiddleware)))

@@ -1,6 +1,6 @@
-import { Reducer } from "redux"
-import { UserAction } from "../Actions/UserActions"
-import { UserConstants } from "../Constants/UserConstants"
+import { Reducer } from 'redux'
+import { UserAction } from '../Actions/UserActions'
+import { UserConstants } from '../Constants/UserConstants'
 import { GoogleLoginResponse } from 'react-google-login'
 
 export interface UserState {
@@ -10,7 +10,7 @@ export interface UserState {
 
 const initialState = {
   google_token: null,
-  master_password: "",
+  master_password: ''
 }
 
 export const UserReducer: Reducer<UserState, UserAction> = (state = initialState, action: UserAction) => {
@@ -24,24 +24,24 @@ export const UserReducer: Reducer<UserState, UserAction> = (state = initialState
       return {
         ...state,
         google_token: null
-      };
+      }
     case UserConstants.MASTER_PASSWORD_SUCCESS:
       return {
         ...state,
-        master_password: action.master_password || "No Password"
+        master_password: action.master_password || 'No Password'
       }
     case UserConstants.MASTER_PASSWORD_ERROR:
       return {
         ...state,
-        master_password: ""
+        master_password: ''
       }
     case UserConstants.CLEAR_MASTER_PASSWORD:
       return {
         ...state,
-        master_password: ""
+        master_password: ''
       }
     case UserConstants.CLEAR:
-      return initialState;
+      return initialState
     default:
       return state
   }

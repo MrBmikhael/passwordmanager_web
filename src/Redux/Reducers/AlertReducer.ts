@@ -1,6 +1,6 @@
-import { Reducer } from "redux"
+import { Reducer } from 'redux'
 import { AlertAction } from '../Actions/AlertActions'
-import { AlertStatus, AlertConstants } from "../Constants/AlertConstants"
+import { AlertStatus, AlertConstants } from '../Constants/AlertConstants'
 
 export interface AlertState {
   message: string
@@ -8,7 +8,7 @@ export interface AlertState {
 }
 
 const initialState = {
-  message: "",
+  message: '',
   status: AlertStatus.info
 }
 
@@ -20,6 +20,6 @@ export const AlertReducer: Reducer<AlertState, AlertAction> = (state = initialSt
         status: action.status
       }
     default:
-      return state
+      return initialState
   }
 }

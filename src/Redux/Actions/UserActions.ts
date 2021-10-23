@@ -29,4 +29,4 @@ export const UserActions = {
   check_master_password,
   clear_master_password,
   clear
-};
+}

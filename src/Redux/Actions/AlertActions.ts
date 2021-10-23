@@ -6,7 +6,11 @@ export interface AlertAction extends Action {
   status: AlertStatus
 }
 
-const addAlert: ActionCreator<AlertAction> = (status: AlertStatus, message: string) => ({ type: AlertConstants.ADD_ALERT, status, message })
+const addAlert: ActionCreator<AlertAction> = (status: AlertStatus, message: string) => ({
+  type: AlertConstants.ADD_ALERT,
+  status,
+  message
+})
 
 export const AlertActions = {
   addAlert
