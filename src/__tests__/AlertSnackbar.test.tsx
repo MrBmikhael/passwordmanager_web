@@ -1,5 +1,5 @@
 import React from 'react'
-import { cleanup, render, fireEvent } from '@testing-library/react'
+import { cleanup, render, fireEvent, screen, waitFor } from '@testing-library/react'
 import { AlertSnackbar } from '../Components/AlertSnackbar/AlertSnackbar'
 import { AlertStatus } from '../Redux/Constants/UIConstants'
 
@@ -34,27 +34,21 @@ test('error and close icon visible', () => {
   expect(queryByTestId('ErrorOutlineIcon')).toBeInTheDocument()
 })
 
-test('error and close icon visible', () => {
-  const { queryByTestId } = render(<AlertSnackbar message={'Test Alert'} status={AlertStatus.error} />)
-  expect(queryByTestId('CloseIcon')).toBeInTheDocument()
-  expect(queryByTestId('ErrorOutlineIcon')).toBeInTheDocument()
-})
-
-test('error and close icon visible', () => {
-  const { queryByTestId } = render(<AlertSnackbar message={'Test Alert'} status={AlertStatus.error} />)
-  expect(queryByTestId('CloseIcon')).toBeInTheDocument()
-  expect(queryByTestId('ErrorOutlineIcon')).toBeInTheDocument()
-})
-
 test('close button closes alert', () => {
-  const { getByText, queryByTestId } = render(<AlertSnackbar message={'Test Alert'} status={AlertStatus.error} />)
-  expect(queryByTestId('CloseIcon')).toBeInTheDocument()
-  expect(getByText('Test Alert')).toBeInTheDocument()
+  render(<AlertSnackbar message={'Test Alert'} status={AlertStatus.error} />)
+  expect(screen.queryByTestId('CloseIcon')).toBeInTheDocument()
+  expect(screen.getByText('Test Alert')).toBeInTheDocument()
 
-  const closeBtn = queryByTestId('CloseIcon')
+  const closeBtn = screen.queryByTestId('CloseIcon')
   if (closeBtn) {
     fireEvent.click(closeBtn)
   }
 
-  expect(getByText('Test Alert')).not.toBeInTheDocument()
+  waitFor(() => {
+    expect(screen.getByTitle('Close')).not.toBeVisible()
+  }, {
+    timeout: 1000,
+    interval: 250
+  })
+
 })
