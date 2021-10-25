@@ -43,7 +43,7 @@ export const AlertSnackbar = (props: AlertSnackbarProps) => {
     <Snackbar
       open={open}
       TransitionComponent={Slide}
-      autoHideDuration={props.delay || 5000}
+      autoHideDuration={props.delay || 3000}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       onClose={handleClose}
       action={action}

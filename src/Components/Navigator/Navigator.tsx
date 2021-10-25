@@ -11,10 +11,9 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { MainAppBar } from '../MainAppBar/MainAppBar'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
-import AddIcon from '@mui/icons-material/Add'
-import Fab from '@mui/material/Fab'
 import FolderIcon from '@mui/icons-material/Folder'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
+import { AddFab } from '../AddFab/AddFab'
 
 const drawerWidth = 240
 
@@ -62,9 +61,7 @@ export const Navigator = () => {
           <Typography paragraph>
             Consequat mauris nunc congue nisi vitae suscipit.
           </Typography>
-          <Fab sx={{ position: 'absolute', bottom: 36, right: 36 }} color="primary" aria-label="add">
-            <AddIcon />
-          </Fab>
+          <AddFab />
         </div>
       </Box>
     </Box>
