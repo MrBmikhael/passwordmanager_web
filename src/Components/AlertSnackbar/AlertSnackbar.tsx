@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import { RootState } from '../../Redux/Reducers/index'
 import { useSelector } from 'react-redux'
-import { AlertStatus } from '../../Redux/Constants/AlertConstants'
+import { AlertStatus } from '../../Redux/Constants/UIConstants'
 
 export interface AlertSnackbarProps {
   message: string
@@ -56,7 +56,7 @@ export const AlertSnackbar = (props: AlertSnackbarProps) => {
 }
 
 export const GlobalAlertSnackbar = () => {
-  const state = useSelector((state: RootState) => state.Alert)
+  const state = useSelector((state: RootState) => state.UI.Snackbar)
   if (state.message !== '') {
     return <AlertSnackbar message={state.message} status={state.status} />
   }

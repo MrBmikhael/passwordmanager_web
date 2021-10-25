@@ -1,18 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './Redux/store'
 import { Provider } from 'react-redux';
-import { GlobalAlertSnackbar } from './Components/AlertSnackbar/AlertSnackbar';
-
-
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <GlobalAlertSnackbar />
       <App />
     </Provider>
   </React.StrictMode>,

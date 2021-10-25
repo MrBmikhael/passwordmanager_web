@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
 import { UserReducer, UserState } from './UserReducer'
-import { AlertReducer, AlertState } from './AlertReducer'
+import { UIReducer, UIState } from './UIReducer'
 
 export interface RootState {
-  Alert: AlertState
+  UI: UIState
   User: UserState
 }
 
 const rootReducer = combineReducers<RootState>({
-  Alert: AlertReducer,
+  UI: UIReducer,
   User: UserReducer
 })
 

@@ -5,6 +5,7 @@ export enum AlertStatus {
   error = 'error'
 }
 
-export const AlertConstants = {
+export const UIConstants = {
+  END_APP_LOADING: 'END_APP_LOADING',
   ADD_ALERT: 'ADD_ALERT'
 }

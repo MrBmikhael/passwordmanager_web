@@ -1,38 +1,56 @@
 import React from 'react'
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, GoogleLogout } from 'react-google-login'
+import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, GoogleLogout, useGoogleLogin, useGoogleLogout } from 'react-google-login'
 import { useDispatch } from 'react-redux'
-import { AlertActions } from '../../Redux/Actions/AlertActions'
+import { UIActions } from '../../Redux/Actions/UIActions'
 import { UserActions } from '../../Redux/Actions/UserActions'
-import { AlertStatus } from '../../Redux/Constants/AlertConstants'
+import { AlertStatus } from '../../Redux/Constants/UIConstants'
 
-const client_id = '952024862678-rka3ij8bqmpr6qps23n72a7b72mjpkep.apps.googleusercontent.com'
+const GoogleLoginProps = {
+  clientId: '952024862678-rka3ij8bqmpr6qps23n72a7b72mjpkep.apps.googleusercontent.com',
+  cookiePolicy: 'single_host_origin',
+  redirectUri: 'http://localhost:3000/',
+  scope: 'https://www.googleapis.com/auth/drive.appdata',
+  isSignedIn: true
+}
+
+const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void) => {
+  dispatch(UserActions.google_login(response))
+  dispatch(UIActions.addAlert(AlertStatus.success, 'Google Login Successful'))
+}
+
+const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void) => {
+  console.error(response)
+  dispatch(UIActions.addAlert(AlertStatus.error, 'Google Login Failed'))
+}
 
 export const LoginWithGoogle = () => {
   const dispatch = useDispatch()
-
-  const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    dispatch(UserActions.google_login(response))
-    dispatch(AlertActions.addAlert(AlertStatus.success, 'Google Login Successful'))
-  }
-
-  const onFailure = (response: GoogleLoginResponse) => {
-    console.error(response)
-    dispatch(AlertActions.addAlert(AlertStatus.error, 'Google Login Failed'))
-  }
-
   return (
     <div>
       <GoogleLogin
-        isSignedIn
-        clientId={client_id}
-        onSuccess={onSuccess}
-        onFailure={onFailure}
-        cookiePolicy="single_host_origin"
-        redirectUri="http://localhost:3000/"
-        scope="https://www.googleapis.com/auth/drive.appdata"
+        {...GoogleLoginProps}
+        onSuccess={(response: GoogleLoginResponse | GoogleLoginResponseOffline) => (onSuccess(response, dispatch))}
+        onFailure={(response: GoogleLoginResponse) => (onFailure(response, dispatch))}
       />
     </div>
   )
+}
+
+export const useLogin = () => {
+  const dispatch = useDispatch()
+  const events = {
+    onSuccess: (response: GoogleLoginResponse | GoogleLoginResponseOffline) => (onSuccess(response, dispatch)),
+    onFailure: (response: GoogleLoginResponse) => (onFailure(response, dispatch))
+  }
+  return useGoogleLogin(Object.assign({}, GoogleLoginProps, events))
+}
+
+export const useLogout = () => {
+  const dispatch = useDispatch()
+  const events = {
+    onLogoutSuccess: () => dispatch(UserActions.clear()),
+  }
+  return useGoogleLogout(Object.assign({}, GoogleLoginProps, events))
 }
 
 export const Logout = () => {
@@ -42,7 +60,7 @@ export const Logout = () => {
   }
   return (
     <div>
-      <GoogleLogout clientId={client_id} buttonText="Logout" onLogoutSuccess={onSuccess} />
+      <GoogleLogout {...GoogleLoginProps} onLogoutSuccess={onSuccess} buttonText="Logout" />
     </div>
   )
 }
