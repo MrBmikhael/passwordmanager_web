@@ -5,19 +5,33 @@ import SpeedDialAction from '@mui/material/SpeedDialAction'
 import ShortTextIcon from '@mui/icons-material/ShortText'
 import FolderIcon from '@mui/icons-material/Folder'
 
-const actions = [
-  { icon: <ShortTextIcon />, name: 'New Credential' },
-  { icon: <FolderIcon />, name: 'New Category' }
-]
-
 export const AddFab = () => {
   const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleNewEntry = () => {
+    handleClose()
+  }
+
+  const handleNewCategory = () => {
+    handleClose()
+  }
+
+  const actions = [
+    { icon: <ShortTextIcon />, name: 'New Entry', onClick: handleNewEntry },
+    { icon: <FolderIcon />, name: 'New Category', onClick: handleNewCategory }
+  ]
 
   return (
     <SpeedDial
-      ariaLabel="SpeedDial uncontrolled open example"
+      ariaLabel="Create ..."
       sx={{ position: 'absolute', bottom: 36, right: 36 }}
       icon={<SpeedDialIcon />}
       onClose={handleClose}
@@ -29,7 +43,7 @@ export const AddFab = () => {
           key={action.name}
           icon={action.icon}
           tooltipTitle={action.name}
-          onClick={handleClose}
+          onClick={action.onClick}
         />
       ))}
     </SpeedDial>
