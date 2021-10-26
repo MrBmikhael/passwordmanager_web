@@ -14,7 +14,14 @@ const addAlert: ActionCreator<AlertAction> = (status: AlertStatus, message: stri
   message
 })
 
+const openNewCategoryDialog: ActionCreator<Action> = () => ({ type: UIConstants.OPEN_NEW_CATEGORY_DIALOG })
+const openNewEntryDialog: ActionCreator<Action> = () => ({ type: UIConstants.OPEN_NEW_ENTRY_DIALOG })
+const closeAllDialogs: ActionCreator<Action> = () => ({ type: UIConstants.CLOSE_DIALOG })
+
 export const UIActions = {
   addAlert,
-  endAppLoading
+  endAppLoading,
+  openNewCategoryDialog,
+  openNewEntryDialog,
+  closeAllDialogs
 }

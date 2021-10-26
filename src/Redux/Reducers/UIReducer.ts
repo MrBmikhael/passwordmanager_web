@@ -4,11 +4,13 @@ import { AlertStatus, UIConstants } from '../Constants/UIConstants'
 
 export interface UIState {
   AppLoading: boolean
+  Dialog: { NewEntry: boolean, NewCategory: boolean }
   Snackbar: { message: string, status: AlertStatus }
 }
 
 const initialState = {
   AppLoading: true,
+  Dialog: { NewEntry: false, NewCategory: false },
   Snackbar: { message: '', status: AlertStatus.info }
 }
 
@@ -26,6 +28,30 @@ export const UIReducer: Reducer<UIState, AlertAction> = (state = initialState, a
       return {
         ...state,
         AppLoading: false
+      }
+    case UIConstants.OPEN_NEW_CATEGORY_DIALOG:
+      return {
+        ...state,
+        Dialog: {
+          NewEntry: false,
+          NewCategory: true
+        }
+      }
+    case UIConstants.OPEN_NEW_ENTRY_DIALOG:
+      return {
+        ...state,
+        Dialog: {
+          NewEntry: true,
+          NewCategory: false
+        }
+      }
+    case UIConstants.CLOSE_DIALOG:
+      return {
+        ...state,
+        Dialog: {
+          NewEntry: false,
+          NewCategory: false
+        }
       }
     default:
       return state

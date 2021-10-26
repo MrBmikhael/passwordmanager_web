@@ -1,23 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../Redux/Reducers'
 import { CreateCategory } from '../CreateCategory/CreateCategory'
 import { CreateEntry } from '../CreateEntry/CreateEntry'
 
 export const Dialogs = () => {
-  const [categoryOpen, setCategoryOpen] = useState(false)
-  const [entryOpen, setEntryOpen] = useState(false)
-
-  const closeEntry = () => {
-    setEntryOpen(!entryOpen)
-  }
-
-  const closeCategory = () => {
-    setCategoryOpen(!categoryOpen)
-  }
+  const state = useSelector((state: RootState) => state.UI.Dialog)
 
   return (
     <>
-      <CreateCategory isOpen={categoryOpen} handleClose={closeCategory} />
-      <CreateEntry isOpen={entryOpen} handleClose={closeEntry} />
+      <CreateCategory isOpen={state.NewCategory} />
+      <CreateEntry isOpen={state.NewEntry} />
     </>
   )
 }

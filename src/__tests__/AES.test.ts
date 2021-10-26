@@ -1,4 +1,4 @@
-import AES from '../Encryption/AES'
+import AES from '../Security/AES'
 
 const key = "password123"
 const secret = "qwerty"

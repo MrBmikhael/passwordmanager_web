@@ -7,27 +7,27 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
+import { useDispatch } from 'react-redux'
+import { UIActions } from '../../Redux/Actions/UIActions'
 
 export interface CreateCategoryProps {
   isOpen: boolean
-  handleClose: () => void
 }
 
 export const CreateCategory = (props: CreateCategoryProps) => {
-
-  const [open, setOpen] = React.useState(props.isOpen)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const dispatch = useDispatch()
 
   const handleClose = () => {
-    setOpen(false)
+    dispatch(UIActions.closeAllDialogs())
   }
 
   return (
     <div>
       <Dialog
         fullScreen={fullScreen}
-        open={open}
+        open={props.isOpen}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >

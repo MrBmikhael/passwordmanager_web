@@ -1,4 +1,6 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { UIActions } from '../../Redux/Actions/UIActions'
 import SpeedDial from '@mui/material/SpeedDial'
 import SpeedDialIcon from '@mui/material/SpeedDialIcon'
 import SpeedDialAction from '@mui/material/SpeedDialAction'
@@ -7,6 +9,7 @@ import FolderIcon from '@mui/icons-material/Folder'
 
 export const AddFab = () => {
   const [open, setOpen] = React.useState(false)
+  const dispatch = useDispatch()
 
   const handleOpen = () => {
     setOpen(true)
@@ -17,10 +20,12 @@ export const AddFab = () => {
   }
 
   const handleNewEntry = () => {
+    dispatch(UIActions.openNewEntryDialog())
     handleClose()
   }
 
   const handleNewCategory = () => {
+    dispatch(UIActions.openNewCategoryDialog())
     handleClose()
   }
 
