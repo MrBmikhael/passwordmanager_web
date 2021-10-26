@@ -16,7 +16,9 @@ export const NavDrawer = () => {
   const [selectedIndex, setIndex] = useState('Default')
   const categories = [
     { key: 'Default', primary: "Default" },
-    { key: 'test_cat', primary: "Test Cat" }
+    { key: 'test_cat', primary: "Test Cat" },
+    { key: 'test_cat_2', primary: "Test Cat" },
+    { key: 'test_cat_3', primary: "Test Cat" }
   ]
 
   const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {

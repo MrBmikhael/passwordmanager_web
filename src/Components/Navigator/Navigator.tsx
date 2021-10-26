@@ -6,10 +6,12 @@ import Typography from '@mui/material/Typography'
 import { MainAppBar } from '../MainAppBar/MainAppBar'
 import { AddFab } from '../AddFab/AddFab'
 import { NavDrawer } from '../NavDrawer/NavDrawer'
+import { Dialogs } from '../Dialogs/Dialogs'
 
 export const Navigator = () => {
   return (
     <Box sx={{ display: 'flex' }}>
+      <Dialogs />
       <CssBaseline />
       <MainAppBar />
       <NavDrawer />
@@ -27,5 +29,5 @@ export const Navigator = () => {
         </div>
       </Box>
     </Box>
-  );
+  )
 }

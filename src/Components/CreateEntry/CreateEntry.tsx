@@ -8,12 +8,12 @@ import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 
-export interface CreateCategoryProps {
+export interface CreateEntryProps {
   isOpen: boolean
   handleClose: () => void
 }
 
-export const CreateCategory = (props: CreateCategoryProps) => {
+export const CreateEntry = (props: CreateEntryProps) => {
 
   const [open, setOpen] = React.useState(props.isOpen)
   const theme = useTheme()
