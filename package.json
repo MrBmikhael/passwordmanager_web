@@ -1,5 +1,6 @@
 {
   "name": "gdrive_passwordmanager",
+  "homepage": "https://mrbmikhael.github.io/passwordmanager_web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
