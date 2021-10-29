@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -8,14 +8,18 @@ import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
-import { UIActions } from '../../Redux/Actions/UIActions'
+import { UIActions } from '../../../Redux/Actions/UIActions'
 import IconButton from '@mui/material/IconButton'
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import AutorenewIcon from '@mui/icons-material/Autorenew'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Input from '@mui/material/Input'
 import InputAdornment from '@mui/material/InputAdornment'
-import { generatePassword } from '../../Security/PasswordGenerator'
+import { checkPasswordStrength, generatePassword } from '../../../Security/PasswordGenerator'
+import Box from '@mui/material/Box'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Typography from '@mui/material/Typography'
 
 export interface CreateEntryProps {
   isOpen: boolean
@@ -24,9 +28,10 @@ export interface CreateEntryProps {
 interface CreateEntryState {
   username: string
   password: string
+  passwordStrength: { lowercase: boolean, uppercase: boolean, number: boolean, symbol: boolean, value: string }
 }
 
-const initialState = { username: '', password: '' }
+const initialState = { username: '', password: '', passwordStrength: { lowercase: false, uppercase: false, number: false, symbol: false, value: '' } }
 
 export const CreateEntry = (props: CreateEntryProps) => {
   const theme = useTheme()
@@ -39,6 +44,25 @@ export const CreateEntry = (props: CreateEntryProps) => {
       ...values,
       [changeEvent.target.id]: changeEvent.target.value
     })
+
+    if (changeEvent.target.id === 'password') {
+      checkPassword(changeEvent.target.value)
+    }
+  }
+
+  const checkPassword = (password: string) => {
+    const pwStrength = checkPasswordStrength(password)
+    const pwst = { ...initialState.passwordStrength }
+
+    pwStrength.contains.forEach((value) => {
+      pwst[value] = true
+    })
+
+    pwst.value = pwStrength.value
+    setValues((state) => ({
+      ...state,
+      passwordStrength: pwst
+    }))
   }
 
   const handleClose = () => {
@@ -46,11 +70,18 @@ export const CreateEntry = (props: CreateEntryProps) => {
     dispatch(UIActions.closeAllDialogs())
   }
 
+  const handleCreateAndClose = () => {
+    // Create
+    handleClose()
+  }
+
   const generatePasswd = () => {
+    const generatedPW = generatePassword()
     setValues((prevState: CreateEntryState) => ({
       ...prevState,
-      password: generatePassword()
+      password: generatedPW
     }))
+    checkPassword(generatedPW)
   }
 
   return (
@@ -86,6 +117,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
               onChange={handleChange}
               endAdornment={
                 <InputAdornment position="end">
+                  <Typography align='right' minWidth={'5ch'}>{values.password.length}</Typography>
                   <IconButton
                     aria-label="generate a new password"
                     onClick={generatePasswd}
@@ -96,13 +128,23 @@ export const CreateEntry = (props: CreateEntryProps) => {
               }
             />
           </FormControl>
-
+          <Box>
+            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.lowercase} />} label="Lowercase" />
+            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.uppercase} />} label="Uppercase" />
+            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.number} />} label="Number" />
+            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.symbol} />} label="Symbol" />
+          </Box>
+          <Box>
+            <Typography>
+              {values.passwordStrength.value}
+            </Typography>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleCreateAndClose} autoFocus>
             Create
           </Button>
         </DialogActions>

@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
-import { UIActions } from '../../Redux/Actions/UIActions'
+import { UIActions } from '../../../Redux/Actions/UIActions'
 
 export interface CreateCategoryProps {
   isOpen: boolean
