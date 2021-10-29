@@ -8,7 +8,7 @@ import { AlertStatus } from '../../Redux/Constants/UIConstants'
 const GoogleLoginProps = {
   clientId: '952024862678-rka3ij8bqmpr6qps23n72a7b72mjpkep.apps.googleusercontent.com',
   cookiePolicy: 'single_host_origin',
-  redirectUri: 'http://localhost:3000/',
+  redirectUri: 'https://mrbmikhael.github.io/passwordmanager_web/',
   scope: 'https://www.googleapis.com/auth/drive.appdata',
   isSignedIn: true
 }
