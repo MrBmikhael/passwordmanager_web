@@ -6,6 +6,13 @@ export interface AlertAction extends Action {
   status: AlertStatus
 }
 
+export interface ProgressBarAction extends Action {
+  progress: number
+  indeterminate: boolean
+}
+
+export type UIAction = AlertAction | ProgressBarAction
+
 const endAppLoading: ActionCreator<Action> = () => ({ type: UIConstants.END_APP_LOADING })
 
 const addAlert: ActionCreator<AlertAction> = (status: AlertStatus, message: string) => ({

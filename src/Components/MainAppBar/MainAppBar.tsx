@@ -1,18 +1,19 @@
-import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-// import GoogleIcon from '@mui/icons-material/Google';
-// import LogoutIcon from '@mui/icons-material/Logout';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../Redux/Reducers';
-import Avatar from '@mui/material/Avatar';
-import { LoginWithGoogle, Logout } from '../LoginWithGoogle/LoginWithGoogle';
+import React from 'react'
+import { styled, alpha } from '@mui/material/styles'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import InputBase from '@mui/material/InputBase'
+import SearchIcon from '@mui/icons-material/Search'
+// import GoogleIcon from '@mui/icons-material/Google'
+// import LogoutIcon from '@mui/icons-material/Logout'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../Redux/Reducers'
+import Avatar from '@mui/material/Avatar'
+import { LoginWithGoogle, Logout } from '../LoginWithGoogle/LoginWithGoogle'
+import { LinearProgressBar } from '../LinearProgressBar/LinearProgressBar'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -28,7 +29,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: 'auto',
   },
-}));
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -38,7 +39,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-}));
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -51,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: '20ch',
     },
   },
-}));
+}))
 
 export const MainAppBar = () => {
   const state = useSelector((state: RootState) => state.User.google_token)
@@ -74,7 +75,7 @@ export const MainAppBar = () => {
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Google Drive Password Manager
+            Password Manager
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -87,7 +88,8 @@ export const MainAppBar = () => {
             {userData}
           </Box>
         </Toolbar>
+        <LinearProgressBar />
       </AppBar>
     </Box>
-  );
+  )
 }
