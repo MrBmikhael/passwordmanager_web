@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
@@ -9,24 +9,20 @@ import FolderIcon from '@mui/icons-material/Folder'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../Redux/Reducers'
+import { DataActions } from '../../Redux/Actions/DataActions'
 
 const drawerWidth: number = 240
 
 export const NavDrawer = () => {
-  const [selectedIndex, setIndex] = useState('Default')
-  const categories = [
-    { key: 'Default', primary: "Default" },
-    { key: 'test_cat', primary: "Test Cat" },
-    { key: 'test_cat_2', primary: "Test Cat" },
-    { key: 'test_cat_3', primary: "Test Cat" }
-  ]
+  const dispatch = useDispatch()
+  const categories = useSelector((state: RootState) => (state.Data.Data))
+  const selectedCat = useSelector((state: RootState) => (state.Data.SelectedCategory))
 
   const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {
-    setIndex(newKey)
-    // Load 'newKey' category
+    dispatch(DataActions.CategoryActions.changeSelectedCategory(newKey))
   }
-
-  console.log(selectedIndex)
 
   return (
     <Drawer
@@ -41,13 +37,13 @@ export const NavDrawer = () => {
       <Box sx={{ overflow: 'auto' }}>
         <List>
           {
-            categories.map((category) => {
+            Object.keys(categories).map((category_name: string) => {
               return (
-                <ListItem button key={category.key} onClick={(event) => handleListItemClick(event, category.key)}>
+                <ListItem button key={category_name} onClick={(event) => handleListItemClick(event, category_name)}>
                   <ListItemIcon>
-                    {(selectedIndex === category.key) ? <FolderOpenIcon /> : <FolderIcon />}
+                    {(selectedCat === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
                   </ListItemIcon>
-                  <ListItemText primary={category.primary} />
+                  <ListItemText primary={category_name} />
                 </ListItem>
               )
             })

@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { UIActions } from '../../../Redux/Actions/UIActions'
 import IconButton from '@mui/material/IconButton'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
@@ -20,6 +20,8 @@ import Box from '@mui/material/Box'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
+import { DataActions } from '../../../Redux/Actions/DataActions'
+import { RootState } from '../../../Redux/Reducers'
 
 export interface CreateEntryProps {
   isOpen: boolean
@@ -38,6 +40,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
   const [values, setValues] = useState<CreateEntryState>(initialState)
+  const currentCategory = useSelector((state: RootState) => state.Data.SelectedCategory)
 
   const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
@@ -71,7 +74,9 @@ export const CreateEntry = (props: CreateEntryProps) => {
   }
 
   const handleCreateAndClose = () => {
-    // Create
+    if (values.username) {
+      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, values.username, values.password))
+    }
     handleClose()
   }
 
