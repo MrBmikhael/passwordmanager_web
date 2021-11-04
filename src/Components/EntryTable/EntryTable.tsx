@@ -16,8 +16,9 @@ export const EntryTable = () => {
   let rows: GridRowsProp = _.get(selectedCategory, 'entries', [])
 
   const columns: GridColDef[] = [
-    { field: 'user', headerName: 'Username', width: 200 },
-    { field: 'pass', headerName: 'Password', width: 500 }
+    { field: 'user', headerName: 'Username', width: 300 },
+    { field: 'pass', headerName: 'Password', width: 500 },
+    { field: 'note', headerName: 'Note', width: 500 }
   ]
 
   const logger = {

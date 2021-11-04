@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../Redux/Reducers'
 import { DataActions } from '../../Redux/Actions/DataActions'
 
-const drawerWidth: number = 240
+const drawerWidth: number = 200
 
 export const NavDrawer = () => {
   const dispatch = useDispatch()
