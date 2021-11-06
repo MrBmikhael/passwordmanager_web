@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../Redux/store'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import { Category } from '../../Redux/Data/DataReducer'
-import _ from 'lodash'
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
 
 export const EntryTable = () => {
@@ -11,9 +10,7 @@ export const EntryTable = () => {
   const selectedCategory: Category = useSelector((state: RootState) => state.Data.Data[selectedCategoryName])
   const { height } = useWindowDimensions()
 
-  console.log(selectedCategory)
-
-  let rows: GridRowsProp = _.get(selectedCategory, 'entries', [])
+  let rows: GridRowsProp = Object.values(selectedCategory.entries)
 
   const columns: GridColDef[] = [
     { field: 'user', headerName: 'Username', width: 300 },

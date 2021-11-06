@@ -10,8 +10,7 @@ export interface Entry {
 }
 
 export interface Category {
-  name: string
-  entries: Entry[] // Record<string, Entry>
+  entries: Record<string, Entry>
 }
 
 export interface DataState {
@@ -20,18 +19,19 @@ export interface DataState {
 }
 
 const initialState = (): DataState => {
-  const defaultCategory: Category = { name: 'Default', entries: [] }
+  const defaultCategory: Category = { entries: {} }
+  const defaultCategoryName: string = "Default"
   return (
     {
       Data: {
-        [defaultCategory.name]: defaultCategory
+        [defaultCategoryName]: defaultCategory
       },
-      SelectedCategory: defaultCategory.name
+      SelectedCategory: defaultCategoryName
     }
   )
 }
 
-export const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), action: DataAction) => {
+const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), action: DataAction) => {
   switch (action.type) {
     case DataConstants.EntryConstants.CREATE_ENTRY:
       const user = _.get(action, 'entry_user')
@@ -42,14 +42,13 @@ export const DataReducer: Reducer<DataState, DataAction> = (state = initialState
         const newEntry: Entry = { id, user, pass }
         const SelectedCategory: string = state.SelectedCategory
         const SelectedCategoryData: Category = state.Data[SelectedCategory]
-        const newEntries = [...SelectedCategoryData.entries]
-        newEntries.push(newEntry)
+        SelectedCategoryData.entries[id] = newEntry
 
         return {
           ...state,
           Data: {
             ...state.Data,
-            [SelectedCategory]: { name: SelectedCategory, entries: newEntries }
+            [SelectedCategory]: { entries: SelectedCategoryData.entries }
           }
         }
       }
@@ -64,7 +63,7 @@ export const DataReducer: Reducer<DataState, DataAction> = (state = initialState
         ...state,
         Data: {
           ...state.Data,
-          [action.category_name]: { name: action.category_name, entries: [] }
+          [action.category_name]: { entries: {} }
         }
       }
     default:
@@ -72,3 +71,5 @@ export const DataReducer: Reducer<DataState, DataAction> = (state = initialState
   }
 
 }
+
+export default DataReducer
