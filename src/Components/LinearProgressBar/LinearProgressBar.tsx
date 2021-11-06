@@ -1,6 +1,6 @@
 import React from 'react'
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
-import { RootState } from '../../Redux/Reducers'
+import { RootState } from '../../Redux/store'
 import { useSelector } from 'react-redux'
 
 export const LinearProgressBar = () => {

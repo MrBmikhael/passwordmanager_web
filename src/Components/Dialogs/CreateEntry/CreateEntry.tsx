@@ -8,7 +8,6 @@ import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch, useSelector } from 'react-redux'
-import { UIActions } from '../../../Redux/Actions/UIActions'
 import IconButton from '@mui/material/IconButton'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import FormControl from '@mui/material/FormControl'
@@ -20,8 +19,9 @@ import Box from '@mui/material/Box'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
-import { DataActions } from '../../../Redux/Actions/DataActions'
-import { RootState } from '../../../Redux/Reducers'
+import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
+import DataActions from '../../../Redux/Data/DataActions'
+import { RootState } from '../../../Redux/store'
 
 export interface CreateEntryProps {
   isOpen: boolean
@@ -70,7 +70,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
 
   const handleClose = () => {
     setValues(() => initialState)
-    dispatch(UIActions.closeAllDialogs())
+    dispatch(GlobalActions.closeAllDialogs())
   }
 
   const handleCreateAndClose = () => {

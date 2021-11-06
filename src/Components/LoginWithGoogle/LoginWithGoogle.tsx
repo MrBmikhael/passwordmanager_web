@@ -1,9 +1,9 @@
 import React from 'react'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, GoogleLogout, useGoogleLogin, useGoogleLogout } from 'react-google-login'
 import { useDispatch } from 'react-redux'
-import { UIActions } from '../../Redux/Actions/UIActions'
-import { UserActions } from '../../Redux/Actions/UserActions'
-import { AlertStatus } from '../../Redux/Constants/UIConstants'
+import UserActions from '../../Redux/User/UserActions'
+import SnackbarActions from '../../Redux/UI/Snackbar/SnackbarActions'
+import { SnackbarAlertStatus } from '../../Redux/UI/Snackbar/SnackbarConstants'
 
 const GoogleLoginProps = {
   clientId: '952024862678-rka3ij8bqmpr6qps23n72a7b72mjpkep.apps.googleusercontent.com',
@@ -15,12 +15,12 @@ const GoogleLoginProps = {
 
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void) => {
   dispatch(UserActions.google_login(response))
-  dispatch(UIActions.addAlert(AlertStatus.success, 'Google Login Successful'))
+  dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
 }
 
 const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void) => {
   console.error(response)
-  dispatch(UIActions.addAlert(AlertStatus.error, 'Google Login Failed'))
+  dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.error, 'Google Login Failed'))
 }
 
 export const LoginWithGoogle = () => {

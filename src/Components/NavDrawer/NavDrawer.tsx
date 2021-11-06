@@ -10,8 +10,8 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../Redux/Reducers'
-import { DataActions } from '../../Redux/Actions/DataActions'
+import { RootState } from '../../Redux/store'
+import DataActions from '../../Redux/Data/DataActions'
 
 const drawerWidth: number = 200
 

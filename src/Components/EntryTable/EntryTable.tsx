@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../Redux/Reducers'
+import { RootState } from '../../Redux/store'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
-import { Category } from '../../Redux/Reducers/DataReducer'
+import { Category } from '../../Redux/Data/DataReducer'
 import _ from 'lodash'
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
 

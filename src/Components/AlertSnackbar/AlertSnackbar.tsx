@@ -4,13 +4,13 @@ import Snackbar from '@mui/material/Snackbar'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
-import { RootState } from '../../Redux/Reducers/index'
+import { RootState } from '../../Redux/store'
 import { useSelector } from 'react-redux'
-import { AlertStatus } from '../../Redux/Constants/UIConstants'
+import { SnackbarAlertStatus } from '../../Redux/UI/Snackbar/SnackbarConstants'
 
 export interface AlertSnackbarProps {
   message: string
-  status: AlertStatus
+  status: SnackbarAlertStatus
   delay?: number
 }
 

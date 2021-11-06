@@ -1,8 +1,26 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import rootReducer from './Reducers'
+import UIReducer, { UIState } from './UI'
+import DataReducer, { DataState } from './Data'
+import UserReducer, { UserState } from './User'
 
-const loggerMiddleware = createLogger()
+export interface RootState {
+  UI: UIState
+  User: UserState
+  Data: DataState
+}
 
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(loggerMiddleware)))
+const rootReducer = combineReducers<RootState>({
+  UI: UIReducer,
+  User: UserReducer,
+  Data: DataReducer
+})
+
+let enhancer = undefined
+if (process.env.NODE_ENV === 'development') {
+  enhancer = composeWithDevTools(applyMiddleware(createLogger()))
+}
+
+const store = createStore(rootReducer, enhancer)
+export default store

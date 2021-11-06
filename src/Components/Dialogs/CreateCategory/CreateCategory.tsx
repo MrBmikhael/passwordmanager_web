@@ -8,11 +8,11 @@ import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
-import { UIActions } from '../../../Redux/Actions/UIActions'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Input from '@mui/material/Input'
-import { DataActions } from '../../../Redux/Actions/DataActions'
+import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
+import DataActions from '../../../Redux/Data/DataActions'
 
 export interface CreateCategoryProps {
   isOpen: boolean
@@ -39,7 +39,7 @@ export const CreateCategory = (props: CreateCategoryProps) => {
 
   const handleClose = () => {
     setValues(() => initialState)
-    dispatch(UIActions.closeAllDialogs())
+    dispatch(GlobalActions.closeAllDialogs())
   }
 
   const handleCreateAndClose = () => {

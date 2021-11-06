@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { UIActions } from '../../Redux/Actions/UIActions'
+import GlobalActions from '../../Redux/UI/Global/GlobalActions'
 import SpeedDial from '@mui/material/SpeedDial'
 import SpeedDialIcon from '@mui/material/SpeedDialIcon'
 import SpeedDialAction from '@mui/material/SpeedDialAction'
@@ -20,12 +20,12 @@ export const AddFab = () => {
   }
 
   const handleNewEntry = () => {
-    dispatch(UIActions.openNewEntryDialog())
+    dispatch(GlobalActions.openNewEntryDialog())
     handleClose()
   }
 
   const handleNewCategory = () => {
-    dispatch(UIActions.openNewCategoryDialog())
+    dispatch(GlobalActions.openNewCategoryDialog())
     handleClose()
   }
 

@@ -1,5 +1,5 @@
 import { Action, ActionCreator } from 'redux'
-import { DataConstants } from '../Constants/DataConstants'
+import { DataConstants } from './DataConstants'
 
 export interface DataAction extends Action {
   category_name: string
@@ -29,4 +29,5 @@ const deleteEntry: ActionCreator<DataAction> = (category_name: string, entry_id:
 const CategoryActions = { createNewCategory, deleteCategory, changeSelectedCategory }
 const EntryActions = { createNewEntry, deleteEntry }
 
-export const DataActions = { EntryActions, CategoryActions }
+const DataActions = { EntryActions, CategoryActions }
+export default DataActions

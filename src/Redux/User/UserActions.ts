@@ -1,5 +1,5 @@
 import { Action, ActionCreator } from 'redux'
-import { UserConstants } from '../Constants/UserConstants'
+import { UserConstants } from './UserConstants'
 import { GoogleLoginResponse } from 'react-google-login'
 
 export interface UserAction extends Action {
@@ -24,9 +24,11 @@ const clear: ActionCreator<Action> = () => {
   return { type: UserConstants.CLEAR }
 }
 
-export const UserActions = {
+const UserActions = {
   google_login,
   check_master_password,
   clear_master_password,
   clear
 }
+
+export default UserActions

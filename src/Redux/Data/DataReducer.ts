@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { Reducer } from 'redux'
-import { DataAction } from '../Actions/DataActions'
-import { DataConstants } from '../Constants/DataConstants'
+import { DataAction } from './DataActions'
+import { DataConstants } from './DataConstants'
 
 export interface Entry {
   id: string
@@ -11,11 +11,11 @@ export interface Entry {
 
 export interface Category {
   name: string
-  entries: Entry[]
+  entries: Entry[] // Record<string, Entry>
 }
 
 export interface DataState {
-  Data: any
+  Data: Record<string, Category>
   SelectedCategory: string
 }
 
