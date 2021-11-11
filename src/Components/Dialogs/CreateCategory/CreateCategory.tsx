@@ -58,7 +58,7 @@ export const CreateCategory = (props: CreateCategoryProps) => {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          {"Create A New Entry"}
+          {"Create A New Category"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>

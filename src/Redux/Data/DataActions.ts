@@ -7,6 +7,7 @@ export interface DataAction extends Action {
   entry_user?: string
   entry_pass?: string
   entry_id?: string
+  url?: string
 }
 
 const createNewCategory: ActionCreator<DataAction> = (category_name: string) => ({
@@ -19,8 +20,8 @@ const changeSelectedCategory: ActionCreator<DataAction> = (category_name: string
   type: DataConstants.CategoryConstants.CHANGE_SELECTED_CATEGORY, category_name
 })
 
-const createNewEntry: ActionCreator<DataAction> = (category_name: string, entry_user: string, entry_pass: string) => ({
-  type: DataConstants.EntryConstants.CREATE_ENTRY, category_name, entry_user, entry_pass
+const createNewEntry: ActionCreator<DataAction> = (category_name: string, entry_user: string, entry_pass: string, url: string) => ({
+  type: DataConstants.EntryConstants.CREATE_ENTRY, category_name, entry_user, entry_pass, url
 })
 const deleteEntry: ActionCreator<DataAction> = (category_name: string, entry_id: string) => ({
   type: DataConstants.EntryConstants.DELETE_ENTRY, category_name, entry_id

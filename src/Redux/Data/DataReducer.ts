@@ -7,6 +7,7 @@ export interface Entry {
   id: string
   user: string
   pass: string
+  url: string
 }
 
 export interface Category {
@@ -36,19 +37,19 @@ const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), act
     case DataConstants.EntryConstants.CREATE_ENTRY:
       const user = _.get(action, 'entry_user')
       const pass = _.get(action, 'entry_pass', '')
+      const url = _.get(action, 'url', '')
+
       if (user) {
-        // temp
-        const id: string = '_' + Math.random().toString(36).substr(2, 9) // generate random id
-        const newEntry: Entry = { id, user, pass }
+        const id: string = '_' + Math.random().toString(36).substr(2, 16)
+        const newEntry: Entry = { id, user, pass, url }
         const SelectedCategory: string = state.SelectedCategory
-        const SelectedCategoryData: Category = state.Data[SelectedCategory]
-        SelectedCategoryData.entries[id] = newEntry
+        state.Data[SelectedCategory].entries[id] = newEntry
 
         return {
           ...state,
           Data: {
             ...state.Data,
-            [SelectedCategory]: { entries: SelectedCategoryData.entries }
+            [SelectedCategory]: { entries: state.Data[SelectedCategory].entries }
           }
         }
       }

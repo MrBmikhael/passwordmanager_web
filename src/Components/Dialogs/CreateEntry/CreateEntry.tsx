@@ -30,10 +30,22 @@ export interface CreateEntryProps {
 interface CreateEntryState {
   username: string
   password: string
+  url: string
   passwordStrength: { lowercase: boolean, uppercase: boolean, number: boolean, symbol: boolean, value: string }
 }
 
-const initialState = { username: '', password: '', passwordStrength: { lowercase: false, uppercase: false, number: false, symbol: false, value: '' } }
+const initialState = {
+  username: '',
+  password: '',
+  url: '',
+  passwordStrength: {
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    symbol: false,
+    value: ''
+  }
+}
 
 export const CreateEntry = (props: CreateEntryProps) => {
   const theme = useTheme()
@@ -75,7 +87,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
 
   const handleCreateAndClose = () => {
     if (values.username) {
-      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, values.username, values.password))
+      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, values.username, values.password, values.url))
     }
     handleClose()
   }
@@ -141,9 +153,18 @@ export const CreateEntry = (props: CreateEntryProps) => {
           </Box>
           <Box>
             <Typography>
-              {values.passwordStrength.value}
+              {values.passwordStrength.value + ' '}
             </Typography>
           </Box>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel htmlFor="url">URL</InputLabel>
+            <Input
+              id="url"
+              type='text'
+              value={values.url}
+              onChange={handleChange}
+            />
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

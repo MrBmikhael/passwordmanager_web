@@ -4,18 +4,24 @@ import { useDispatch } from 'react-redux'
 import UserActions from '../../Redux/User/UserActions'
 import SnackbarActions from '../../Redux/UI/Snackbar/SnackbarActions'
 import { SnackbarAlertStatus } from '../../Redux/UI/Snackbar/SnackbarConstants'
+import GoogleDriveAPI from '../../GoogleDrive/GoogleDriveAPI'
+
+const scopes = [
+  'https://www.googleapis.com/auth/drive.file',
+  'https://www.googleapis.com/auth/drive.appdata'
+]
 
 const GoogleLoginProps = {
   clientId: '952024862678-rka3ij8bqmpr6qps23n72a7b72mjpkep.apps.googleusercontent.com',
   cookiePolicy: 'single_host_origin',
-  redirectUri: 'https://mrbmikhael.github.io/passwordmanager_web/',
-  scope: 'https://www.googleapis.com/auth/drive.appdata',
+  scope: scopes.join(' '),
   isSignedIn: true
 }
 
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void) => {
   dispatch(UserActions.google_login(response))
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
+  GoogleDriveAPI.getInstance().createInitialFiles()
 }
 
 const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void) => {
