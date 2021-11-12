@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/passwordmanager_web/static/js/main.caa26e2a.chunk.js",
-    "main.js.map": "/passwordmanager_web/static/js/main.caa26e2a.chunk.js.map",
+    "main.js": "/passwordmanager_web/static/js/main.b1b14eb2.chunk.js",
+    "main.js.map": "/passwordmanager_web/static/js/main.b1b14eb2.chunk.js.map",
     "runtime-main.js": "/passwordmanager_web/static/js/runtime-main.66c33355.js",
     "runtime-main.js.map": "/passwordmanager_web/static/js/runtime-main.66c33355.js.map",
     "static/js/2.de4109cf.chunk.js": "/passwordmanager_web/static/js/2.de4109cf.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.66c33355.js",
     "static/js/2.de4109cf.chunk.js",
-    "static/js/main.caa26e2a.chunk.js"
+    "static/js/main.b1b14eb2.chunk.js"
   ]
 }
