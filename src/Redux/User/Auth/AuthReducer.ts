@@ -25,6 +25,8 @@ const AuthReducer: Reducer<AuthState, AuthAction> = (state = initialState, actio
         ...state,
         masterPassword: action.masterPassword
       }
+    case AuthConstats.LOGOUT:
+      return initialState
     default:
       return state
   }

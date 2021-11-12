@@ -5,12 +5,14 @@ export interface GlobalState {
   AppLoading: boolean
   NewEntry: boolean
   NewCategory: boolean
+  MasterPassword: boolean
 }
 
 const initialState: GlobalState = {
   AppLoading: true,
   NewEntry: false,
-  NewCategory: false
+  NewCategory: false,
+  MasterPassword: false
 }
 
 const GlobalReducer: Reducer<GlobalState, Action> = (state = initialState, action: Action) => {
@@ -31,6 +33,13 @@ const GlobalReducer: Reducer<GlobalState, Action> = (state = initialState, actio
         ...state,
         NewEntry: true,
         NewCategory: false
+      }
+    case GlobalConstants.OPEN_MASTER_PASSWORD_DIALOG:
+      return {
+        ...state,
+        NewEntry: false,
+        NewCategory: false,
+        MasterPassword: true
       }
     case GlobalConstants.CLOSE_DIALOG:
       return {

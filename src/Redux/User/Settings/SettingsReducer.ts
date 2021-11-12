@@ -1,9 +1,10 @@
 import { Reducer } from 'redux'
 import SettingsConstants from './SettingsConstants'
 import { SettingsAction } from './SettingsActions'
+import { PasswordGeneratorProps } from '../../../Security/PasswordGenerator'
 
 export interface SettingsState {
-  passwordGen: {}
+  passwordGen: PasswordGeneratorProps
 }
 
 const initialState: SettingsState = {
