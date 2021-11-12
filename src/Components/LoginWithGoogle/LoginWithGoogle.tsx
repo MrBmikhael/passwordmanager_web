@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, GoogleLogout, useGoogleLogin, useGoogleLogout } from 'react-google-login'
 import { useDispatch } from 'react-redux'
-import UserActions from '../../Redux/User/UserActions'
+import AuthActions from '../../Redux/User/Auth/AuthActions'
 import SnackbarActions from '../../Redux/UI/Snackbar/SnackbarActions'
 import { SnackbarAlertStatus } from '../../Redux/UI/Snackbar/SnackbarConstants'
 import GoogleDriveAPI from '../../GoogleDrive/GoogleDriveAPI'
@@ -19,7 +19,7 @@ const GoogleLoginProps = {
 }
 
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void) => {
-  dispatch(UserActions.google_login(response))
+  dispatch(AuthActions.loginUsingGoogle(response))
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
   GoogleDriveAPI.getInstance().createInitialFiles()
 }
@@ -54,7 +54,7 @@ export const useLogin = () => {
 export const useLogout = () => {
   const dispatch = useDispatch()
   const events = {
-    onLogoutSuccess: () => dispatch(UserActions.clear()),
+    onLogoutSuccess: () => dispatch(AuthActions.logout()),
   }
   return useGoogleLogout(Object.assign({}, GoogleLoginProps, events))
 }
@@ -62,7 +62,7 @@ export const useLogout = () => {
 export const Logout = () => {
   const dispatch = useDispatch()
   const onSuccess = () => {
-    dispatch(UserActions.clear())
+    dispatch(AuthActions.logout())
   }
   return (
     <div>

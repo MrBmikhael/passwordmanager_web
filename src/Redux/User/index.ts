@@ -1,5 +1,15 @@
-import UserReducer from './UserReducer'
-export * from './UserActions'
-export * from './UserConstants'
-export * from './UserReducer'
+import { combineReducers } from 'redux'
+import SettingsReducer, { SettingsState } from './Settings/SettingsReducer'
+import AuthReducer, { AuthState } from './Auth/AuthReducer'
+
+export interface UserState {
+  Settings: SettingsState
+  Auth: AuthState
+}
+
+const UserReducer = combineReducers<UserState>({
+  Settings: SettingsReducer,
+  Auth: AuthReducer
+})
+
 export default UserReducer

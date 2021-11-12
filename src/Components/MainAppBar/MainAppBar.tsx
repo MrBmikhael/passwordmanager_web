@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export const MainAppBar = () => {
-  const state = useSelector((state: RootState) => state.User.google_token)
+  const state = useSelector((state: RootState) => state.User.Auth.GoogleToken)
 
   let userData = <>
     <LoginWithGoogle />

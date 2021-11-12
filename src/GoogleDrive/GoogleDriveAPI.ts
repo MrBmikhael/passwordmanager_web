@@ -15,8 +15,8 @@ class GoogleDriveAPI {
   }
 
   private constructor() {
-    const token_type: string = _.get(store.getState().User.google_token, 'tokenObj.token_type')
-    const access_token: string = _.get(store.getState().User.google_token, 'tokenObj.access_token')
+    const token_type: string = _.get(store.getState().User.Auth.GoogleToken, 'tokenObj.token_type')
+    const access_token: string = _.get(store.getState().User.Auth.GoogleToken, 'tokenObj.access_token')
 
     this.axiosInstance = axios.create({
       baseURL: 'https://www.googleapis.com/drive/v3/',
