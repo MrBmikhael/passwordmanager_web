@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 import _ from 'lodash'
-import store from '../Redux/store'
+import store from '../../Redux/store'
 
 class GoogleDriveAPI {
   private API_KEY: string = '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'
@@ -66,7 +66,11 @@ class GoogleDriveAPI {
     const dataFolderExists = await this.getFileByName('PasswordManagerData')
     if (dataFolderExists === undefined) {
       this.createFolder('PasswordManagerData', { 'folderColorRgb': 'Red' }).then((data) => {
-        this.createFile('DO NOT EDIT ANYTHING IN THIS FOLDER', { 'parents': [data.id] })
+        Promise.all([
+          this.createFile('DO NOT EDIT ANYTHING IN THIS FOLDER', { 'parents': [data.id] }),
+          this.createFolder('Data', { 'parents': [data.id] }),
+          this.createFile('Settings.enc', { 'parents': [data.id] }),
+        ])
       })
     }
   }

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import AuthActions from '../../Redux/User/Auth/AuthActions'
 import SnackbarActions from '../../Redux/UI/Snackbar/SnackbarActions'
 import { SnackbarAlertStatus } from '../../Redux/UI/Snackbar/SnackbarConstants'
-import GoogleDriveAPI from '../../GoogleDrive/GoogleDriveAPI'
+import GoogleDriveAPI from '../../DataHandler/CloudStorage/GoogleDriveAPI'
 
 const scopes = [
   'https://www.googleapis.com/auth/drive.file',
