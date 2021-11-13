@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, GoogleLogout, useGoogleLogin, useGoogleLogout } from 'react-google-login'
 import { useDispatch } from 'react-redux'
 import AuthActions from '../../Redux/User/Auth/AuthActions'
@@ -12,7 +13,7 @@ const scopes = [
 ]
 
 const GoogleLoginProps = {
-  clientId: '952024862678-rka3ij8bqmpr6qps23n72a7b72mjpkep.apps.googleusercontent.com',
+  clientId: _.get(process.env, 'REACT_APP_GOOGLE_CLIENT_ID', ''),
   cookiePolicy: 'single_host_origin',
   scope: scopes.join(' '),
   isSignedIn: true

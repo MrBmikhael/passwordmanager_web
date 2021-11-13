@@ -16,6 +16,13 @@ jobs:
           node-version: '16'
       - name: Setup Yarn Env
         run: yarn
+      - shell: bash
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        run: |
+          echo "REACT_APP_GOOGLE_API_KEY=\"$GOOGLE_API_KEY\"" > .env
+          echo "REACT_APP_GOOGLE_CLIENT_ID=\"$GOOGLE_CLIENT_ID\"" >> .env
       - name: Run unit tests
         run: yarn test:ci
       - name: Build app

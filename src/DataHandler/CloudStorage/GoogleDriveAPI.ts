@@ -3,7 +3,7 @@ import _ from 'lodash'
 import store from '../../Redux/store'
 
 class GoogleDriveAPI {
-  private API_KEY: string = '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'
+  private API_KEY: string = _.get(process.env, 'REACT_APP_GOOGLE_API_KEY', '')
   private axiosInstance: AxiosInstance | null = null
   private static instance: GoogleDriveAPI | null = null
 
