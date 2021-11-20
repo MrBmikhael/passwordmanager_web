@@ -9,6 +9,7 @@ import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const copyCellData = async (str: string) => {
   if (navigator.clipboard) {
@@ -24,6 +25,22 @@ interface EntryCardProps {
 }
 
 const EntryCard = (props: EntryCardProps) => {
+  const cardAction = () => {
+    if (props.url && props.url !== 'http://') {
+      return (
+        <IconButton aria-label="open in a new window" onClick={() => window.open(props.url)}>
+          <OpenInNewIcon />
+        </IconButton>
+      )
+    }
+  }
+
+  const cardHeader = () => {
+    if (props.url && props.url !== 'http://') {
+      return props.url
+    }
+  }
+
   return (
     <Card sx={{ maxWidth: '500px' }}>
       <CardHeader
@@ -32,14 +49,15 @@ const EntryCard = (props: EntryCardProps) => {
             {props.name.substring(0, 1)}
           </Avatar>
         }
+        action={cardAction()}
         title={props.name}
-        subheader={props.url}
+        subheader={cardHeader()}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary" onClick={() => copyCellData(props.user)}>
+        <Typography noWrap gutterBottom variant="body2" color="text.secondary" onClick={() => copyCellData(props.user)}>
           Username: {props.user}
         </Typography>
-        <Typography variant="body2" color="text.secondary" onClick={() => copyCellData(props.pass)}>
+        <Typography noWrap gutterBottom variant="body2" color="text.secondary" onClick={() => copyCellData(props.pass)}>
           Password: {props.pass}
         </Typography>
       </CardContent>

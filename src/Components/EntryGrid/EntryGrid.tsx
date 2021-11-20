@@ -15,8 +15,8 @@ const EntryGrid = () => {
           Object.keys(passWordData.Passwords[passWordData.SelectedCategory].entries).map((key: string) => {
             const entry = passWordData.Passwords[passWordData.SelectedCategory].entries[key]
             return (
-              <Grid item xs>
-                <EntryCard name={entry.id} url={entry.url} user={entry.user} pass={entry.pass} />
+              <Grid item xs key={entry.id}>
+                <EntryCard name={entry.name} url={entry.url} user={entry.user} pass={entry.pass} />
               </Grid>
             )
           })

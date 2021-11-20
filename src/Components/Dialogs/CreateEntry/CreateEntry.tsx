@@ -3,7 +3,6 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
@@ -12,7 +11,6 @@ import IconButton from '@mui/material/IconButton'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import Input from '@mui/material/Input'
 import InputAdornment from '@mui/material/InputAdornment'
 import { checkPasswordStrength, generatePassword } from '../../../Security/PasswordGenerator'
 import Box from '@mui/material/Box'
@@ -22,6 +20,9 @@ import Typography from '@mui/material/Typography'
 import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
 import DataActions from '../../../Redux/Data/DataActions'
 import { RootState } from '../../../Redux/store'
+import TextField from '@mui/material/TextField'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import { FormHelperText } from '@mui/material'
 
 export interface CreateEntryProps {
   isOpen: boolean
@@ -31,13 +32,15 @@ interface CreateEntryState {
   username: string
   password: string
   url: string
+  name: string
   passwordStrength: { lowercase: boolean, uppercase: boolean, number: boolean, symbol: boolean, value: string }
 }
 
 const initialState = {
   username: '',
   password: '',
-  url: '',
+  url: 'http://',
+  name: '',
   passwordStrength: {
     lowercase: false,
     uppercase: false,
@@ -88,7 +91,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
 
   const handleCreateAndClose = () => {
     if (values.username) {
-      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, values.username, values.password, values.url))
+      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, values.username, values.password, values.url, values.name))
     }
     handleClose()
   }
@@ -114,21 +117,30 @@ export const CreateEntry = (props: CreateEntryProps) => {
           {"Create A New Entry"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Create a new entry
-          </DialogContentText>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Input
+          <FormControl variant="outlined" fullWidth margin='dense'>
+            <TextField
+              required
+              focused
+              label="Name"
+              id="name"
+              value={values.name}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl variant="outlined" fullWidth margin='dense'>
+            <TextField
+              required
+              label="Username"
               id="username"
-              type='text'
               value={values.username}
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl variant="standard" fullWidth>
+
+          <FormControl variant="outlined" fullWidth margin='dense' required>
             <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
+            <OutlinedInput
+              label="Password"
               id="password"
               type='text'
               value={values.password}
@@ -145,23 +157,25 @@ export const CreateEntry = (props: CreateEntryProps) => {
                 </InputAdornment>
               }
             />
+            <FormHelperText>
+              <Box>
+                <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.lowercase} />} label="Lowercase" />
+                <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.uppercase} />} label="Uppercase" />
+                <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.number} />} label="Number" />
+                <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.symbol} />} label="Symbol" />
+              </Box>
+              {values.passwordStrength.value + ' '}
+            </FormHelperText>
           </FormControl>
           <Box>
-            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.lowercase} />} label="Lowercase" />
-            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.uppercase} />} label="Uppercase" />
-            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.number} />} label="Number" />
-            <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.symbol} />} label="Symbol" />
-          </Box>
-          <Box>
-            <Typography>
-              {values.passwordStrength.value + ' '}
+            <Typography paragraph>
+
             </Typography>
           </Box>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="url">URL</InputLabel>
-            <Input
+          <FormControl variant="outlined" fullWidth margin='dense'>
+            <TextField
+              label="URL"
               id="url"
-              type='text'
               value={values.url}
               onChange={handleChange}
             />

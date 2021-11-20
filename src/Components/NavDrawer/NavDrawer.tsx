@@ -5,7 +5,7 @@ import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
-import CreditCardIcon from '@mui/icons-material/CreditCard'
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import PasswordIcon from '@mui/icons-material/Password'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
@@ -90,7 +90,7 @@ export const NavDrawer = () => {
         <List>
           <ListItemButton onClick={(event) => handleListExpansion(event, 'Files')}>
             <ListItemIcon>
-              <CreditCardIcon />
+              <InsertDriveFileIcon />
             </ListItemIcon>
             <ListItemText primary="Files" />
             {expansionState.Files ? <ExpandLess /> : <ExpandMore />}

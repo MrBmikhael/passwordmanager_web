@@ -20,8 +20,8 @@ const changeSelectedCategory: ActionCreator<DataAction> = (category_name: string
   type: DataConstants.CategoryConstants.CHANGE_SELECTED_CATEGORY, category_name
 })
 
-const createNewEntry: ActionCreator<DataAction> = (category_name: string, entry_user: string, entry_pass: string, url: string) => ({
-  type: DataConstants.EntryConstants.CREATE_ENTRY, category_name, entry_user, entry_pass, url
+const createNewEntry: ActionCreator<DataAction> = (category_name: string, entry_user: string, entry_pass: string, url: string, name: string) => ({
+  type: DataConstants.EntryConstants.CREATE_ENTRY, category_name, entry_user, entry_pass, url, name
 })
 const deleteEntry: ActionCreator<DataAction> = (category_name: string, entry_id: string) => ({
   type: DataConstants.EntryConstants.DELETE_ENTRY, category_name, entry_id

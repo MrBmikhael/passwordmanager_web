@@ -37,7 +37,7 @@ export const AddFab = () => {
   return (
     <SpeedDial
       ariaLabel="Create ..."
-      sx={{ position: 'absolute', bottom: 36, right: 36 }}
+      sx={{ position: 'fixed', bottom: 36, right: 36 }}
       icon={<SpeedDialIcon />}
       onClose={handleClose}
       onOpen={handleOpen}

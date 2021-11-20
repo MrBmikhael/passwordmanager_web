@@ -19,8 +19,8 @@ export const Navigator = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <EntryGrid />
-        <AddFab />
       </Box>
+      <AddFab />
     </Box>
   )
 }

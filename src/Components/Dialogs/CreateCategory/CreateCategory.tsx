@@ -9,10 +9,9 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
 import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Input from '@mui/material/Input'
 import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
 import DataActions from '../../../Redux/Data/DataActions'
+import TextField from '@mui/material/TextField'
 
 export interface CreateCategoryProps {
   isOpen: boolean
@@ -64,11 +63,12 @@ export const CreateCategory = (props: CreateCategoryProps) => {
           <DialogContentText>
             Create a new category
           </DialogContentText>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="category">Category</InputLabel>
-            <Input
+          <FormControl variant="outlined" fullWidth margin='dense'>
+            <TextField
+              focused
+              required
+              label="Category"
               id="category"
-              type='text'
               value={values.category}
               onChange={handleChange}
             />

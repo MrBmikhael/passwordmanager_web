@@ -5,6 +5,7 @@ import { DataConstants } from './DataConstants'
 
 export interface Entry {
   id: string
+  name: string
   user: string
   pass: string
   url: string
@@ -42,10 +43,11 @@ const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), act
       const user = _.get(action, 'entry_user')
       const pass = _.get(action, 'entry_pass', '')
       const url = _.get(action, 'url', '')
+      const name = _.get(action, 'name', '')
 
       if (user) {
         const id: string = '_' + Math.random().toString(36).substr(2, 16)
-        const newEntry: Entry = { id, user, pass, url }
+        const newEntry: Entry = { id, user, pass, url, name }
         const SelectedCategory: string = state.SelectedCategory
         state.Passwords[SelectedCategory].entries[id] = newEntry
 
