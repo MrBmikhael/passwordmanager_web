@@ -15,16 +15,20 @@ export interface Category {
 }
 
 export interface DataState {
-  Data: Record<string, Category>
+  Passwords: Record<string, Category>
+  Files: Record<string, Category>
   SelectedCategory: string
 }
 
 const initialState = (): DataState => {
   const defaultCategory: Category = { entries: {} }
-  const defaultCategoryName: string = "Default"
+  const defaultCategoryName: string = "General"
   return (
     {
-      Data: {
+      Passwords: {
+        [defaultCategoryName]: defaultCategory
+      },
+      Files: {
         [defaultCategoryName]: defaultCategory
       },
       SelectedCategory: defaultCategoryName
@@ -43,13 +47,13 @@ const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), act
         const id: string = '_' + Math.random().toString(36).substr(2, 16)
         const newEntry: Entry = { id, user, pass, url }
         const SelectedCategory: string = state.SelectedCategory
-        state.Data[SelectedCategory].entries[id] = newEntry
+        state.Passwords[SelectedCategory].entries[id] = newEntry
 
         return {
           ...state,
-          Data: {
-            ...state.Data,
-            [SelectedCategory]: { entries: state.Data[SelectedCategory].entries }
+          Passwords: {
+            ...state.Passwords,
+            [SelectedCategory]: { entries: state.Passwords[SelectedCategory].entries }
           }
         }
       }
@@ -62,8 +66,8 @@ const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), act
     case DataConstants.CategoryConstants.CREATE_CATEGORY:
       return {
         ...state,
-        Data: {
-          ...state.Data,
+        Passwords: {
+          ...state.Passwords,
           [action.category_name]: { entries: {} }
         }
       }

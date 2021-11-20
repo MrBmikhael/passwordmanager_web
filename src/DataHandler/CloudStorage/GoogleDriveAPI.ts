@@ -68,8 +68,9 @@ class GoogleDriveAPI {
       this.createFolder('PasswordManagerData', { 'folderColorRgb': 'Red' }).then((data) => {
         Promise.all([
           this.createFile('DO NOT EDIT ANYTHING IN THIS FOLDER', { 'parents': [data.id] }),
-          this.createFolder('Data', { 'parents': [data.id] }),
-          this.createFile('Settings.enc', { 'parents': [data.id] }),
+          this.createFolder('Passwords', { 'parents': [data.id] }),
+          this.createFolder('Files', { 'parents': [data.id] }),
+          this.createFile('Settings.enc.txt', { 'parents': [data.id] }),
         ])
       })
     }

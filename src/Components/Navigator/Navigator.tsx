@@ -6,7 +6,8 @@ import { MainAppBar } from '../MainAppBar/MainAppBar'
 import { AddFab } from '../AddFab/AddFab'
 import { NavDrawer } from '../NavDrawer/NavDrawer'
 import { Dialogs } from '../Dialogs/Dialogs'
-import { EntryTable } from '../EntryTable/EntryTable'
+import EntryGrid from '../EntryGrid/EntryGrid'
+// import { EntryTable } from '../EntryTable/EntryTable'
 
 export const Navigator = () => {
   return (
@@ -17,7 +18,7 @@ export const Navigator = () => {
       <NavDrawer />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <EntryTable />
+        <EntryGrid />
         <AddFab />
       </Box>
     </Box>
