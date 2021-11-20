@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Avatar from '@mui/material/Avatar'
@@ -20,7 +20,8 @@ interface EntryCardProps {
 }
 
 const EntryCard = (props: EntryCardProps) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [elevation, setElevation] = useState(1)
 
   const copyCellData = async (str: string) => {
     if (navigator.clipboard) {
@@ -80,12 +81,21 @@ const EntryCard = (props: EntryCardProps) => {
 
   const cardHeader = () => {
     if (props.url && props.url !== 'http://') {
-      return <Typography noWrap variant='body2' color={'text.secondary'}>{props.url}</Typography>
+      return <Typography noWrap variant='body2' color={'text.secondary'} maxWidth={200}>{props.url}</Typography>
+    }
+  }
+
+  const updateElevation = () => {
+    if (elevation === 7) {
+      setElevation(1)
+    }
+    else {
+      setElevation(7)
     }
   }
 
   return (
-    <Card sx={{ maxWidth: '500px' }}>
+    <Card elevation={elevation} onMouseEnter={updateElevation} onMouseLeave={updateElevation} sx={{ minWidth: '300px', maxWidth: '500px' }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -93,7 +103,7 @@ const EntryCard = (props: EntryCardProps) => {
           </Avatar>
         }
         action={cardAction()}
-        title={<Typography noWrap>{props.name}</Typography>}
+        title={<Typography noWrap maxWidth={200}>{props.name}</Typography>}
         subheader={cardHeader()}
       />
       <CardContent>

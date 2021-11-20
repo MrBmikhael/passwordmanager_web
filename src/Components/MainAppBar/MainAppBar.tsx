@@ -7,8 +7,6 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
-// import GoogleIcon from '@mui/icons-material/Google'
-// import LogoutIcon from '@mui/icons-material/Logout'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../Redux/store'
 import Avatar from '@mui/material/Avatar'
@@ -81,7 +79,7 @@ export const MainAppBar = () => {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+            <StyledInputBase placeholder="Search…" />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
