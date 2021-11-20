@@ -5,17 +5,12 @@ import Avatar from '@mui/material/Avatar'
 import red from '@mui/material/colors/red'
 import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-
-const copyCellData = async (str: string) => {
-  if (navigator.clipboard) {
-    await navigator.clipboard.writeText(str)
-  }
-}
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Tooltip from '@mui/material/Tooltip'
+import MoreIcon from '@mui/icons-material/MoreVert'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 
 interface EntryCardProps {
   name: string
@@ -25,19 +20,67 @@ interface EntryCardProps {
 }
 
 const EntryCard = (props: EntryCardProps) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const copyCellData = async (str: string) => {
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(str)
+    }
+  }
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  }
+
   const cardAction = () => {
+    const ele = [
+      <Tooltip title="More" arrow>
+        <IconButton onClick={handleMenu}>
+          <MoreIcon />
+        </IconButton></Tooltip>,
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          Delete
+        </MenuItem>
+      </Menu>
+    ]
     if (props.url && props.url !== 'http://') {
-      return (
-        <IconButton aria-label="open in a new window" onClick={() => window.open(props.url)}>
-          <OpenInNewIcon />
-        </IconButton>
+      ele.unshift(
+        <Tooltip title="Open" arrow>
+          <IconButton aria-label="open in a new window" onClick={() => window.open(props.url)}>
+            <OpenInNewIcon />
+          </IconButton>
+        </Tooltip>
       )
     }
+
+    return <>{ele.map((el) => el)}</>
   }
 
   const cardHeader = () => {
     if (props.url && props.url !== 'http://') {
-      return props.url
+      return <Typography noWrap variant='body2' color={'text.secondary'}>{props.url}</Typography>
     }
   }
 
@@ -50,7 +93,7 @@ const EntryCard = (props: EntryCardProps) => {
           </Avatar>
         }
         action={cardAction()}
-        title={props.name}
+        title={<Typography noWrap>{props.name}</Typography>}
         subheader={cardHeader()}
       />
       <CardContent>
@@ -61,14 +104,6 @@ const EntryCard = (props: EntryCardProps) => {
           Password: {props.pass}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="edit entry">
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="delete entry">
-          <DeleteIcon />
-        </IconButton>
-      </CardActions>
     </Card>
   )
 }

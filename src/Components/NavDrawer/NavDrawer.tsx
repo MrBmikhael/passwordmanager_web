@@ -74,7 +74,7 @@ export const NavDrawer = () => {
               {
                 Object.keys(passwordsCategories).map((category_name: string) => {
                   return (
-                    <ListItem button key={category_name} onClick={(event) => handleListItemClick(event, category_name)} sx={{ pl: 4 }}>
+                    <ListItem button key={category_name} onClick={(event) => handleListItemClick(event, category_name)} sx={{ pl: 4, height: 56 }}>
                       <ListItemIcon>
                         {(selectedCat === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
                       </ListItemIcon>
