@@ -7,11 +7,14 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../Redux/store'
 import Avatar from '@mui/material/Avatar'
 import { LoginWithGoogle, Logout } from '../LoginWithGoogle/LoginWithGoogle'
 import { LinearProgressBar } from '../LinearProgressBar/LinearProgressBar'
+import SettingsIcon from '@mui/icons-material/Settings'
+import { Tooltip } from '@mui/material'
+import GlobalActions from '../../Redux/UI/Global/GlobalActions'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,6 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const MainAppBar = () => {
   const state = useSelector((state: RootState) => state.User.Auth.GoogleToken)
+  const dispatch = useDispatch()
 
   let userData = <>
     <LoginWithGoogle />
@@ -62,6 +66,11 @@ export const MainAppBar = () => {
   if (state) {
     userData = <>
       <Logout />
+      <Tooltip title={"Settings"} arrow>
+        <IconButton size="large" edge="end" color="inherit" onClick={() => dispatch(GlobalActions.openUserSettingsDialog())}>
+          <SettingsIcon />
+        </IconButton>
+      </Tooltip>
       <IconButton size="large" edge="end" color="inherit">
         <Avatar alt={state.profileObj.name} src={state.profileObj.imageUrl} sx={{ width: 24, height: 24 }} />
       </IconButton>

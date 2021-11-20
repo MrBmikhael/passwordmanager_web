@@ -4,6 +4,7 @@ import { RootState } from '../../Redux/store'
 import { CreateCategory } from './CreateCategory/CreateCategory'
 import { CreateEntry } from './CreateEntry/CreateEntry'
 import { MasterPassword } from './MasterPassword/MasterPassword'
+import { UserSettings } from './UserSettings/UserSettings'
 
 export const Dialogs = () => {
   const state = useSelector((state: RootState) => state.UI.Global)
@@ -13,6 +14,7 @@ export const Dialogs = () => {
       <CreateCategory isOpen={state.NewCategory} />
       <CreateEntry isOpen={state.NewEntry} />
       <MasterPassword isOpen={state.MasterPassword} />
+      <UserSettings isOpen={state.UserSettings} />
     </>
   )
 }

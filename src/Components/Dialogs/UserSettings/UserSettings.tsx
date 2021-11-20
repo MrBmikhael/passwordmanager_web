@@ -12,9 +12,8 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Input from '@mui/material/Input'
 import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
-import UserActions from '../../../Redux/User/Auth/AuthActions'
 
-export interface MasterPasswordProps {
+export interface UserSettingsProps {
   isOpen: boolean
 }
 
@@ -26,7 +25,7 @@ const initialState = {
   password: ''
 }
 
-export const MasterPassword = (props: MasterPasswordProps) => {
+export const UserSettings = (props: UserSettingsProps) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()

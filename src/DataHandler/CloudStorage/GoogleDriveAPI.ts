@@ -65,12 +65,12 @@ class GoogleDriveAPI {
   public async createInitialFiles() {
     const dataFolderExists = await this.getFileByName('PasswordManagerData')
     if (dataFolderExists === undefined) {
-      this.createFolder('PasswordManagerData', { 'folderColorRgb': 'Red' }).then((data) => {
+      this.createFolder('PasswordManagerData', { 'folderColorRgb': 'Red' }).then((rootFolder) => {
         Promise.all([
-          this.createFile('DO NOT EDIT ANYTHING IN THIS FOLDER', { 'parents': [data.id] }),
-          this.createFolder('Passwords', { 'parents': [data.id] }),
-          this.createFolder('Files', { 'parents': [data.id] }),
-          this.createFile('Settings.enc.txt', { 'parents': [data.id] }),
+          this.createFile('DO NOT EDIT ANYTHING IN THIS FOLDER', { 'parents': [rootFolder.id] }),
+          this.createFolder('Passwords', { 'parents': [rootFolder.id] }),
+          this.createFolder('Files', { 'parents': [rootFolder.id] }),
+          this.createFile('Settings.enc.txt', { 'parents': [rootFolder.id] }),
         ])
       })
     }

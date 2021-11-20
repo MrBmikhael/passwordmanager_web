@@ -46,7 +46,7 @@ const initialState = {
     uppercase: false,
     number: false,
     symbol: false,
-    value: ''
+    value: 'Too weak'
   }
 }
 
@@ -158,13 +158,13 @@ export const CreateEntry = (props: CreateEntryProps) => {
               }
             />
             <FormHelperText>
-              <Box>
+              <Box alignContent={'center'} alignSelf={'center'}>
                 <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.lowercase} />} label="Lowercase" />
                 <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.uppercase} />} label="Uppercase" />
                 <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.number} />} label="Number" />
                 <FormControlLabel disabled control={<Checkbox checked={values.passwordStrength.symbol} />} label="Symbol" />
+                <Typography align='right' color={'Highlight'} variant='caption'>{values.passwordStrength.value}</Typography>
               </Box>
-              {values.passwordStrength.value + ' '}
             </FormHelperText>
           </FormControl>
           <Box>
