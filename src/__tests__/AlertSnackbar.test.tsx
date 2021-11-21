@@ -1,7 +1,7 @@
 import React from 'react'
 import { cleanup, render, fireEvent, screen, waitFor } from '@testing-library/react'
 import { AlertSnackbar } from '../Components/AlertSnackbar/AlertSnackbar'
-import { SnackbarAlertStatus } from '../Redux/UI/Snackbar/SnackbarConstants'
+import { SnackbarAlertStatus } from '../Redux/Store/UI/Snackbar/SnackbarConstants'
 
 afterEach(cleanup)
 

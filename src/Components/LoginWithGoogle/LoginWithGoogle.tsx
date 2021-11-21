@@ -2,10 +2,10 @@ import React from 'react'
 import _ from 'lodash'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline, GoogleLogout, useGoogleLogin, useGoogleLogout } from 'react-google-login'
 import { useDispatch } from 'react-redux'
-import AuthActions from '../../Redux/User/Auth/AuthActions'
-import SnackbarActions from '../../Redux/UI/Snackbar/SnackbarActions'
-import { SnackbarAlertStatus } from '../../Redux/UI/Snackbar/SnackbarConstants'
-import GoogleDriveAPI from '../../DataHandler/CloudStorage/GoogleDriveAPI'
+import AuthActions from '../../Redux/Store/User/Auth/AuthActions'
+import SnackbarActions from '../../Redux/Store/UI/Snackbar/SnackbarActions'
+import { SnackbarAlertStatus } from '../../Redux/Store/UI/Snackbar/SnackbarConstants'
+import GoogleDriveAPI from '../../GoogleDriveAPI/'
 
 const scopes = [
   'https://www.googleapis.com/auth/drive.file',
@@ -22,7 +22,10 @@ const GoogleLoginProps = {
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void) => {
   dispatch(AuthActions.loginUsingGoogle(response))
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
-  GoogleDriveAPI.getInstance().createInitialFiles()
+  const GDrive = GoogleDriveAPI.getInstance()
+  if (GDrive) {
+    GDrive.createInitialFiles()
+  }
 }
 
 const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void) => {

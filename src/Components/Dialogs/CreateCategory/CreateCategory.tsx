@@ -8,8 +8,8 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
 import FormControl from '@mui/material/FormControl'
-import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
-import DataActions from '../../../Redux/Data/DataActions'
+import GlobalActions from '../../../Redux/Store/UI/Global/GlobalActions'
+import DataActions from '../../../Redux/Store/Data/DataActions'
 import TextField from '@mui/material/TextField'
 
 export interface CreateCategoryProps {

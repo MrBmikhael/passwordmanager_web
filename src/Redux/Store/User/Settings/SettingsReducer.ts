@@ -1,7 +1,7 @@
 import { Reducer } from 'redux'
 import SettingsConstants from './SettingsConstants'
 import { SettingsAction } from './SettingsActions'
-import { PasswordGeneratorProps } from '../../../Security/PasswordGenerator'
+import { PasswordGeneratorProps } from '../../../../Security/PasswordGenerator'
 
 export interface SettingsState {
   passwordGen: PasswordGeneratorProps

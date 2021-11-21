@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Input from '@mui/material/Input'
-import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
+import GlobalActions from '../../../Redux/Store/UI/Global/GlobalActions'
 
 export interface UserSettingsProps {
   isOpen: boolean

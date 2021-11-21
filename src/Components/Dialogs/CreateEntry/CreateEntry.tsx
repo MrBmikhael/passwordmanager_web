@@ -17,9 +17,9 @@ import Box from '@mui/material/Box'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
-import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
-import DataActions from '../../../Redux/Data/DataActions'
-import { RootState } from '../../../Redux/store'
+import GlobalActions from '../../../Redux/Store/UI/Global/GlobalActions'
+import DataActions from '../../../Redux/Store/Data/DataActions'
+import { RootState } from '../../../Redux'
 import TextField from '@mui/material/TextField'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import { FormHelperText } from '@mui/material'
@@ -52,6 +52,7 @@ const initialState = {
 
 export const CreateEntry = (props: CreateEntryProps) => {
   const theme = useTheme()
+  const masterPassword = useSelector((state: RootState) => state.User.Auth.masterPassword)
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
   const [values, setValues] = useState<CreateEntryState>(initialState)
@@ -91,7 +92,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
 
   const handleCreateAndClose = () => {
     if (values.username) {
-      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, values.username, values.password, values.url, values.name))
+      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, values.username, values.password, values.url, values.name, masterPassword))
     }
     handleClose()
   }

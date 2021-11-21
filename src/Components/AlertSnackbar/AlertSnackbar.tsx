@@ -4,9 +4,9 @@ import Snackbar from '@mui/material/Snackbar'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
-import { RootState } from '../../Redux/store'
+import { RootState } from '../../Redux'
 import { useSelector } from 'react-redux'
-import { SnackbarAlertStatus } from '../../Redux/UI/Snackbar/SnackbarConstants'
+import { SnackbarAlertStatus } from '../../Redux/Store/UI/Snackbar/SnackbarConstants'
 
 export interface AlertSnackbarProps {
   message: string

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../Redux/store'
+import { RootState } from '../../Redux'
 import { DataGrid, GridRowsProp, GridColDef, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
-import { Category } from '../../Redux/Data/DataReducer'
+import { Category } from '../../Redux/Store/Data/DataReducer'
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
 
 export const EntryTable = () => {

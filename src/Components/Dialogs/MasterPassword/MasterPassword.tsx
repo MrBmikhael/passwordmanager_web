@@ -11,8 +11,8 @@ import { useDispatch } from 'react-redux'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Input from '@mui/material/Input'
-import GlobalActions from '../../../Redux/UI/Global/GlobalActions'
-import UserActions from '../../../Redux/User/Auth/AuthActions'
+import GlobalActions from '../../../Redux/Store/UI/Global/GlobalActions'
+import UserActions from '../../../Redux/Store/User/Auth/AuthActions'
 
 export interface MasterPasswordProps {
   isOpen: boolean

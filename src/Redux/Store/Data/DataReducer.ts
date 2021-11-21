@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { Reducer } from 'redux'
+import AES from '../../../Security/AES'
 import { DataAction } from './DataActions'
 import { DataConstants } from './DataConstants'
 
@@ -9,6 +10,7 @@ export interface Entry {
   user: string
   pass: string
   url: string
+  encrypted: string
 }
 
 export interface Category {
@@ -44,10 +46,12 @@ const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), act
       const pass = _.get(action, 'entry_pass', '')
       const url = _.get(action, 'url', '')
       const name = _.get(action, 'name', '')
+      const masterPassword = _.get(action, 'masterPassword', '')
 
       if (user) {
-        const id: string = '_' + Math.random().toString(36).substr(2, 16)
-        const newEntry: Entry = { id, user, pass, url, name }
+        const id: string = '_' + Math.random().toString(36).substring(2, 16)
+        const encrypted = AES.encrypt(JSON.stringify({ id, user, pass, url, name }), masterPassword)
+        const newEntry: Entry = { id, user, pass, url, name, encrypted }
         const SelectedCategory: string = state.SelectedCategory
         state.Passwords[SelectedCategory].entries[id] = newEntry
 

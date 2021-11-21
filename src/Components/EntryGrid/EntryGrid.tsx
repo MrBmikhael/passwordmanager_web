@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import { RootState } from '../../Redux/store'
+import { RootState } from '../../Redux'
 import { useSelector } from 'react-redux'
 import EntryCard from '../EntryCard/EntryCard'
 

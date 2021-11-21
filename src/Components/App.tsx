@@ -4,8 +4,8 @@ import { GlobalAlertSnackbar } from './AlertSnackbar/AlertSnackbar'
 import { ProgressCircle } from './ProgressCircle/ProgressCircle'
 import { useTimeout } from 'usehooks-ts'
 import { useDispatch, useSelector } from 'react-redux'
-import GlobalActions from '../Redux/UI/Global/GlobalActions'
-import { RootState } from '../Redux/store'
+import GlobalActions from '../Redux/Store/UI/Global/GlobalActions'
+import { RootState } from '../Redux'
 import { useLogin } from './LoginWithGoogle/LoginWithGoogle'
 
 const AppLoadingContent = () => {

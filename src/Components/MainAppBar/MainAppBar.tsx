@@ -8,13 +8,13 @@ import Typography from '@mui/material/Typography'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../Redux/store'
+import { RootState } from '../../Redux'
 import Avatar from '@mui/material/Avatar'
 import { LoginWithGoogle, Logout } from '../LoginWithGoogle/LoginWithGoogle'
 import { LinearProgressBar } from '../LinearProgressBar/LinearProgressBar'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { Tooltip } from '@mui/material'
-import GlobalActions from '../../Redux/UI/Global/GlobalActions'
+import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
