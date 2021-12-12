@@ -7,7 +7,6 @@ import { AddFab } from '../AddFab/AddFab'
 import { NavDrawer } from '../NavDrawer/NavDrawer'
 import { Dialogs } from '../Dialogs/Dialogs'
 import EntryGrid from '../EntryGrid/EntryGrid'
-// import { EntryTable } from '../EntryTable/EntryTable'
 
 export const Navigator = () => {
   return (

@@ -10,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../Redux'
 import Avatar from '@mui/material/Avatar'
-import { LoginWithGoogle, Logout } from '../LoginWithGoogle/LoginWithGoogle'
+import { Logout } from '../LoginWithGoogle/LoginWithGoogle'
 import { LinearProgressBar } from '../LinearProgressBar/LinearProgressBar'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { Tooltip } from '@mui/material'
@@ -58,10 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const MainAppBar = () => {
   const state = useSelector((state: RootState) => state.User.Auth.GoogleToken)
   const dispatch = useDispatch()
-
-  let userData = <>
-    <LoginWithGoogle />
-  </>
+  let userData = <></>
 
   if (state) {
     userData = <>

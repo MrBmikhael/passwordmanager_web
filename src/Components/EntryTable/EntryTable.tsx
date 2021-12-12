@@ -10,9 +10,18 @@ export const EntryTable = () => {
   const selectedCategory: Category = useSelector((state: RootState) => state.Data.Passwords[selectedCategoryName])
   const { height } = useWindowDimensions()
 
-  let rows: GridRowsProp = Object.values(selectedCategory.entries)
+  const data = Object.values(selectedCategory.entries)
+
+  data.forEach((entry: any) => {
+    entry['actions'] = (
+      <p>Test</p>
+    )
+  })
+
+  const rows: GridRowsProp = Object.values(selectedCategory.entries)
 
   const columns: GridColDef[] = [
+    { field: 'name', headerName: 'Name', width: 500 },
     { field: 'user', headerName: 'Username', width: 500 },
     { field: 'pass', headerName: 'Password', width: 500 },
     { field: 'url', headerName: 'URL', width: 500 }
@@ -32,7 +41,7 @@ export const EntryTable = () => {
     <div style={{ height: (height - (height / 3)), width: '100%' }}>
       <div style={{ display: 'flex', height: '100%' }}>
         <div style={{ flexGrow: 1 }}>
-          <DataGrid autoPageSize pagination rows={rows} columns={columns} onCellClick={copyCellData} onCellDoubleClick={editCellData} components={{
+          <DataGrid pagination pageSize={20} rows={rows} editMode='row' columns={columns} onCellClick={copyCellData} onCellDoubleClick={editCellData} components={{
             Toolbar: () => <GridToolbarContainer><GridToolbarExport /></GridToolbarContainer>
           }} />
         </div>

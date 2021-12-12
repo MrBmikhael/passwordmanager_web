@@ -18,6 +18,7 @@ import DataActions from '../../Redux/Store/Data/DataActions'
 import ListItemButton from '@mui/material/ListItemButton'
 import Collapse from '@mui/material/Collapse'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import EntryGridActions from '../../Redux/Store/UI/EntryGrid/EntryGridActions'
 
 const drawerWidth: number = 240
 
@@ -33,14 +34,15 @@ const initialExpansionState: expansionState = {
 
 export const NavDrawer = () => {
   const dispatch = useDispatch()
-  const passwordsCategories = useSelector((state: RootState) => (state.Data.Passwords))
-  const filesCategories = useSelector((state: RootState) => (state.Data.Files))
-  const selectedCat = useSelector((state: RootState) => (state.Data.SelectedCategory))
+  const userData = useSelector((state: RootState) => (state.Data))
 
   const [expansionState, setExpansion] = useState(initialExpansionState)
 
   const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {
-    dispatch(DataActions.CategoryActions.changeSelectedCategory(newKey))
+    if (userData.SelectedCategory !== newKey) {
+      dispatch(DataActions.CategoryActions.changeSelectedCategory(newKey))
+      dispatch(EntryGridActions.entryGridLoadData())
+    }
   }
 
   const handleListExpansion = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {
@@ -72,11 +74,11 @@ export const NavDrawer = () => {
           <Collapse in={expansionState.Passwords} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {
-                Object.keys(passwordsCategories).map((category_name: string) => {
+                Object.keys(userData.Passwords).map((category_name: string) => {
                   return (
                     <ListItem button key={category_name} onClick={(event) => handleListItemClick(event, category_name)} sx={{ pl: 4, height: 56 }}>
                       <ListItemIcon>
-                        {(selectedCat === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
+                        {(userData.SelectedCategory === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
                       </ListItemIcon>
                       <ListItemText primary={category_name} />
                     </ListItem>
@@ -98,11 +100,11 @@ export const NavDrawer = () => {
           <Collapse in={expansionState.Files} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {
-                Object.keys(filesCategories).map((category_name: string) => {
+                Object.keys(userData.Files).map((category_name: string) => {
                   return (
                     <ListItem button key={category_name} onClick={(event) => handleListItemClick(event, category_name)} sx={{ pl: 4 }}>
                       <ListItemIcon>
-                        {(selectedCat === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
+                        {(userData.SelectedCategory === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
                       </ListItemIcon>
                       <ListItemText primary={category_name} />
                     </ListItem>

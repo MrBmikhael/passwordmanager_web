@@ -23,10 +23,7 @@ import { RootState } from '../../../Redux'
 import TextField from '@mui/material/TextField'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import { FormHelperText } from '@mui/material'
-
-export interface CreateEntryProps {
-  isOpen: boolean
-}
+import EntryGridActions from '../../../Redux/Store/UI/EntryGrid/EntryGridActions'
 
 interface CreateEntryState {
   username: string
@@ -36,18 +33,9 @@ interface CreateEntryState {
   passwordStrength: { lowercase: boolean, uppercase: boolean, number: boolean, symbol: boolean, value: string }
 }
 
-const initialState = {
-  username: '',
-  password: '',
-  url: 'http://',
-  name: '',
-  passwordStrength: {
-    lowercase: false,
-    uppercase: false,
-    number: false,
-    symbol: false,
-    value: 'Too weak'
-  }
+export interface CreateEntryProps {
+  isOpen: boolean
+  values?: Omit<CreateEntryState, 'passwordStrength'>
 }
 
 export const CreateEntry = (props: CreateEntryProps) => {
@@ -55,6 +43,25 @@ export const CreateEntry = (props: CreateEntryProps) => {
   const masterPassword = useSelector((state: RootState) => state.User.Auth.masterPassword)
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
+
+  let initialState: CreateEntryState = {
+    username: '',
+    password: '',
+    url: 'http://',
+    name: '',
+    passwordStrength: {
+      lowercase: false,
+      uppercase: false,
+      number: false,
+      symbol: false,
+      value: 'Too weak'
+    }
+  }
+
+  if (props.values) {
+    initialState = { ...initialState, ...props.values }
+  }
+
   const [values, setValues] = useState<CreateEntryState>(initialState)
   const currentCategory = useSelector((state: RootState) => state.Data.SelectedCategory)
   const pwGenerationSettings = useSelector((state: RootState) => state.User.Settings.passwordGen)
@@ -88,6 +95,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
   const handleClose = () => {
     setValues(() => initialState)
     dispatch(GlobalActions.closeAllDialogs())
+    dispatch(EntryGridActions.entryGridLoadData())
   }
 
   const handleCreateAndClose = () => {

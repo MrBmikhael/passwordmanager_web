@@ -1,14 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import _ from 'lodash'
 import App from './Components/App'
 import reportWebVitals from './reportWebVitals'
 import store from './Redux'
 import { Provider } from 'react-redux'
+import { GoogleApiProvider } from 'react-gapi'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <GoogleApiProvider clientId={_.get(process.env, 'REACT_APP_GOOGLE_API_KEY', '')}>
+        <App />
+      </GoogleApiProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

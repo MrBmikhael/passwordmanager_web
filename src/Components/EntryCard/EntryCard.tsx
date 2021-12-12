@@ -2,15 +2,13 @@ import React, { useState } from 'react'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Avatar from '@mui/material/Avatar'
-import red from '@mui/material/colors/red'
 import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import Tooltip from '@mui/material/Tooltip'
 import MoreIcon from '@mui/icons-material/MoreVert'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import Link from '@mui/material/Link'
 
 interface EntryCardProps {
   name: string
@@ -19,9 +17,18 @@ interface EntryCardProps {
   pass: string
 }
 
+interface CardState {
+  anchorEl: null | HTMLElement
+  elevation: number
+}
+
+const initialState: CardState = {
+  anchorEl: null,
+  elevation: 1
+}
+
 const EntryCard = (props: EntryCardProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [elevation, setElevation] = useState(1)
+  const [state, setState] = useState(initialState)
 
   const copyCellData = async (str: string) => {
     if (navigator.clipboard) {
@@ -30,22 +37,31 @@ const EntryCard = (props: EntryCardProps) => {
   }
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    setState((pState) => ({ ...pState, anchorEl: event.currentTarget }))
+  }
+
+  const handleEditClick = () => {
+    handleClose()
+  }
+
+  const handleDeleteClick = () => {
+    handleClose()
   }
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setState((pState) => ({ ...pState, anchorEl: null }))
   }
 
+  const isUrl = (props.url && props.url !== 'http://' && props.url !== 'https://')
+
   const cardAction = () => {
-    const ele = [
-      <Tooltip title="More" arrow>
-        <IconButton onClick={handleMenu}>
-          <MoreIcon />
-        </IconButton></Tooltip>,
+    return (<span>
+      <IconButton onClick={handleMenu}>
+        <MoreIcon />
+      </IconButton>
       <Menu
         id="menu-appbar"
-        anchorEl={anchorEl}
+        anchorEl={state.anchorEl}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -55,50 +71,49 @@ const EntryCard = (props: EntryCardProps) => {
           vertical: 'top',
           horizontal: 'right',
         }}
-        open={Boolean(anchorEl)}
+        open={Boolean(state.anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleEditClick}>
           Edit
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleDeleteClick}>
           Delete
         </MenuItem>
       </Menu>
-    ]
-    if (props.url && props.url !== 'http://') {
-      ele.unshift(
-        <Tooltip title="Open" arrow>
-          <IconButton aria-label="open in a new window" onClick={() => window.open(props.url)}>
-            <OpenInNewIcon />
-          </IconButton>
-        </Tooltip>
-      )
-    }
-
-    return <>{ele.map((el) => el)}</>
+    </span>)
   }
 
   const cardHeader = () => {
-    if (props.url && props.url !== 'http://') {
-      return <Typography noWrap variant='body2' color={'text.secondary'} maxWidth={200}>{props.url}</Typography>
+    if (isUrl) {
+      return <Link underline="hover" variant='body2' href={props.url} target={"_blank"}>{props.url}</Link>
     }
   }
 
   const updateElevation = () => {
-    if (elevation === 7) {
-      setElevation(1)
+    if (state.elevation === 7) {
+      setState((pState) => ({ ...pState, elevation: 1 }))
     }
     else {
-      setElevation(7)
+      setState((pState) => ({ ...pState, elevation: 7 }))
     }
   }
 
+  let iconUrl = ''
+
+  if (isUrl) {
+    iconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${props.url.replace('http://', '').replace('https://', '')}`
+  }
+  else {
+    iconUrl = 'https://www.google.com/s2/favicons?sz=64&domain=nothing'
+  }
+
+
   return (
-    <Card elevation={elevation} onMouseEnter={updateElevation} onMouseLeave={updateElevation} sx={{ minWidth: '300px', maxWidth: '500px' }}>
+    <Card elevation={state.elevation} onMouseEnter={updateElevation} onMouseLeave={updateElevation} sx={{ minWidth: '300px', maxWidth: '500px' }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: '#fff' }} src={iconUrl} aria-label="recipe">
             {props.name.substring(0, 1)}
           </Avatar>
         }

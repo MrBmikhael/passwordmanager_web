@@ -5,9 +5,15 @@ import { useDispatch } from 'react-redux'
 import AuthActions from '../../Redux/Store/User/Auth/AuthActions'
 import SnackbarActions from '../../Redux/Store/UI/Snackbar/SnackbarActions'
 import { SnackbarAlertStatus } from '../../Redux/Store/UI/Snackbar/SnackbarConstants'
-import GoogleDriveAPI from '../../GoogleDriveAPI/'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import GoogleIcon from '@mui/icons-material/Google'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
+import LogoutIcon from '@mui/icons-material/Logout'
 
-const scopes = [
+export const scopes = [
   'https://www.googleapis.com/auth/drive.file',
   'https://www.googleapis.com/auth/drive.appdata'
 ]
@@ -22,10 +28,6 @@ const GoogleLoginProps = {
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void) => {
   dispatch(AuthActions.loginUsingGoogle(response))
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
-  const GDrive = GoogleDriveAPI.getInstance()
-  if (GDrive) {
-    GDrive.createInitialFiles()
-  }
 }
 
 const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void) => {
@@ -35,13 +37,17 @@ const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void)
 
 export const LoginWithGoogle = () => {
   const dispatch = useDispatch()
+
   return (
     <div>
       <GoogleLogin
         {...GoogleLoginProps}
+        render={(renderProps) => <Button onClick={renderProps.onClick} disabled={renderProps.disabled} variant='contained'><Stack direction="row" spacing={1}><GoogleIcon /><Typography>Sign in with Google</Typography></Stack></Button>}
         onSuccess={(response: GoogleLoginResponse | GoogleLoginResponseOffline) => (onSuccess(response, dispatch))}
         onFailure={(response: GoogleLoginResponse) => (onFailure(response, dispatch))}
-      />
+        cookiePolicy={'single_host_origin'}
+      >
+      </GoogleLogin>
     </div>
   )
 }
@@ -70,7 +76,7 @@ export const Logout = () => {
   }
   return (
     <div>
-      <GoogleLogout {...GoogleLoginProps} onLogoutSuccess={onSuccess} buttonText="Logout" />
+      <GoogleLogout {...GoogleLoginProps} render={(renderProps) => <Tooltip title={"Logout"} arrow><IconButton size="large" edge="end" color="inherit" onClick={renderProps.onClick}><LogoutIcon /></IconButton></Tooltip>} onLogoutSuccess={onSuccess} buttonText="Logout" />
     </div>
   )
 }
