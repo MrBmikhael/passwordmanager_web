@@ -84,7 +84,7 @@ export const MasterPassword = (props: MasterPasswordProps) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCreateAndClose} autoFocus>
-            Check
+            Unlock
           </Button>
         </DialogActions>
       </Dialog>

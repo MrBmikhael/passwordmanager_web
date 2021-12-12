@@ -45,7 +45,6 @@ export const AlertSnackbar = (props: AlertSnackbarProps) => {
       TransitionComponent={Slide}
       autoHideDuration={props.delay || 3000}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      onClose={handleClose}
       action={action}
     >
       <Alert onClose={handleClose} severity={props.status} sx={{ width: '100%' }}>
