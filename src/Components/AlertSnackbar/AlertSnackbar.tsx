@@ -23,7 +23,7 @@ Alert.displayName = 'Alert'
 export const AlertSnackbar = (props: AlertSnackbarProps) => {
   const [open, setOpen] = React.useState(true)
 
-  const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+  const handleClose = (event: Event | React.SyntheticEvent<any, Event>, reason?: string) => {
     if (reason === 'clickaway') {
       return
     }
@@ -43,8 +43,9 @@ export const AlertSnackbar = (props: AlertSnackbarProps) => {
     <Snackbar
       open={open}
       TransitionComponent={Slide}
-      autoHideDuration={props.delay || 3000}
+      autoHideDuration={props.delay || 2000}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      onClose={handleClose}
       action={action}
     >
       <Alert onClose={handleClose} severity={props.status} sx={{ width: '100%' }}>

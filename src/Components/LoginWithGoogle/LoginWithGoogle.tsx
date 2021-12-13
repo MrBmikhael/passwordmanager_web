@@ -12,6 +12,7 @@ import GoogleIcon from '@mui/icons-material/Google'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import LogoutIcon from '@mui/icons-material/Logout'
+import GoogleDriveAPI from '../../GoogleDriveAPI'
 
 export const scopes = [
   'https://www.googleapis.com/auth/drive.file',
@@ -28,6 +29,10 @@ const GoogleLoginProps = {
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void) => {
   dispatch(AuthActions.loginUsingGoogle(response))
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
+  const gdrive = GoogleDriveAPI.getInstance()
+  if (gdrive) {
+    gdrive.createInitialFiles().catch((e: any) => console.error(e))
+  }
 }
 
 const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void) => {
