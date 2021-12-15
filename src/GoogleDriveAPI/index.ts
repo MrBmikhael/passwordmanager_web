@@ -48,8 +48,8 @@ class GoogleDriveAPI {
     }
 
     const reqBody = new FormData()
-    reqBody.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json; charset=UTF-8' }), fileName)
-    reqBody.append('file', file, fileName)
+    reqBody.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json; charset=UTF-8' }))
+    reqBody.append('file', file)
 
     this.axiosInstance('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
       method: 'POST',
@@ -76,19 +76,24 @@ class GoogleDriveAPI {
     return _.find(files, { 'name': fileName })
   }
 
-  public async createInitialFiles() {
-    const dataFolderExists = await this.getFileByName('PasswordManagerData')
-    if (dataFolderExists === undefined) {
-      this.createFolder('PasswordManagerData', { 'folderColorRgb': 'Red' }).then((rootFolder) => {
-        this.RootFolderID = rootFolder.data.id
-        Promise.all([
-          this.createFile('DO NOT EDIT ANYTHING IN THIS FOLDER', { 'parents': [rootFolder.data.id] }),
-          this.createFolder('Passwords', { 'parents': [rootFolder.data.id] }),
-          this.createFolder('Files', { 'parents': [rootFolder.data.id] }),
-          // this.uploadFile('Settings.enc.txt', JSON.stringify(store.getState().User.Settings), { 'parents': [rootFolder.data.id] })
-        ])
-      })
-    }
+  public getRootFolder() {
+    return this.getFileByName('PasswordManagerData')
+  }
+
+  public createInitialFiles() {
+    this.getRootFolder().then((rootFolder) => {
+      if (rootFolder === undefined) {
+        this.createFolder('PasswordManagerData', { 'folderColorRgb': 'Red' }).then((rootFolder) => {
+          this.RootFolderID = rootFolder.data.id
+          Promise.all([
+            this.createFile('DO NOT EDIT ANYTHING IN THIS FOLDER', { 'parents': [rootFolder.data.id] }),
+            this.createFolder('Passwords', { 'parents': [rootFolder.data.id] }),
+            this.createFolder('Files', { 'parents': [rootFolder.data.id] }),
+            this.uploadFile('Settings.enc.txt', JSON.stringify(store.getState().User.Settings), { 'parents': [rootFolder.data.id] })
+          ])
+        })
+      }
+    })
   }
 }
 

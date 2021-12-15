@@ -17,6 +17,7 @@ import { Tooltip } from '@mui/material'
 import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
 
 const Search = styled('div')(({ theme }) => ({
+  minWidth: '30%',
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -44,14 +45,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
+  display: 'block',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
+    width: '100%'
   },
 }))
 
@@ -77,8 +76,8 @@ export const MainAppBar = () => {
   return (
     <Box>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+        <Toolbar sx={{ display: 'flex', alignItems: 'center', minWidth: '100%', justifyContent: 'space-between' }}>
+          <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>
             Password Manager
           </Typography>
           <Search>
@@ -87,8 +86,7 @@ export const MainAppBar = () => {
             </SearchIconWrapper>
             <StyledInputBase placeholder="Search…" />
           </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: 'flex' }}>
             {userData}
           </Box>
         </Toolbar>

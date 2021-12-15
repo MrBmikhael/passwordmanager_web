@@ -31,7 +31,7 @@ const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, d
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
   const gdrive = GoogleDriveAPI.getInstance()
   if (gdrive) {
-    gdrive.createInitialFiles().catch((e: any) => console.error(e))
+    gdrive.createInitialFiles()
   }
 }
 
