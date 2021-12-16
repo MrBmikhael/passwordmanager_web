@@ -1,36 +1,28 @@
 import React from 'react'
+import { RootState } from '../../Redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { styled, alpha } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import InputBase from '@mui/material/InputBase'
-import SearchIcon from '@mui/icons-material/Search'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../Redux'
 import Avatar from '@mui/material/Avatar'
+import SettingsIcon from '@mui/icons-material/Settings'
+import SearchIcon from '@mui/icons-material/Search'
 import { Logout } from '../LoginWithGoogle/LoginWithGoogle'
 import { LinearProgressBar } from '../LinearProgressBar/LinearProgressBar'
-import SettingsIcon from '@mui/icons-material/Settings'
-import { Tooltip } from '@mui/material'
 import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
 
 const Search = styled('div')(({ theme }) => ({
-  minWidth: '30%',
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
+  }
 }))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -47,14 +39,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   display: 'block',
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    boxSizing: 'border-box',
+    padding: theme.spacing(3, 3, 3, `calc(1em + ${theme.spacing(4)})`),
     transition: theme.transitions.create('width'),
     width: '100%'
-  },
+  }
 }))
 
 export const MainAppBar = () => {
+
   const state = useSelector((state: RootState) => state.User.Auth.GoogleToken)
   const dispatch = useDispatch()
   let userData = <></>
@@ -76,17 +69,17 @@ export const MainAppBar = () => {
   return (
     <Box>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar sx={{ display: 'flex', alignItems: 'center', minWidth: '100%', justifyContent: 'space-between' }}>
-          <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Toolbar sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
+          <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' }, width: { xs: '0', sm: '30%' } }}>
             Password Manager
           </Typography>
-          <Search>
+          <Search sx={{ width: { xs: '70%', sm: '40%' } }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase placeholder="Search…" />
           </Search>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', width: '30%', justifyContent: 'flex-end' }}>
             {userData}
           </Box>
         </Toolbar>
