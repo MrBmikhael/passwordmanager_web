@@ -51,9 +51,10 @@ class GoogleDriveAPI {
     reqBody.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json; charset=UTF-8' }))
     reqBody.append('file', file)
 
-    this.axiosInstance('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
+    this.axiosInstance('https://www.googleapis.com/upload/drive/v3/files', {
       method: 'POST',
       responseType: 'json',
+      params: { 'uploadType': 'multipart' },
       data: reqBody
     })
   }
