@@ -41,7 +41,7 @@ export const NavDrawer = () => {
   const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {
     if (userData.SelectedCategory !== newKey) {
       dispatch(DataActions.CategoryActions.changeSelectedCategory(newKey))
-      dispatch(EntryGridActions.entryGridLoadData())
+      dispatch(EntryGridActions.entryGridLoadData(1))
     }
   }
 

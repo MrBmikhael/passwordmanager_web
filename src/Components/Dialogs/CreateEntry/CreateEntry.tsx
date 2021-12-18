@@ -125,6 +125,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
         <DialogTitle id="responsive-dialog-title">
           {"Create A New Entry"}
         </DialogTitle>
+
         <DialogContent>
           <FormControl variant="outlined" fullWidth margin='dense'>
             <TextField
@@ -136,6 +137,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
               onChange={handleChange}
             />
           </FormControl>
+
           <FormControl variant="outlined" fullWidth margin='dense'>
             <TextField
               required
@@ -176,11 +178,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
               </Box>
             </FormHelperText>
           </FormControl>
-          <Box>
-            <Typography paragraph>
 
-            </Typography>
-          </Box>
           <FormControl variant="outlined" fullWidth margin='dense'>
             <TextField
               label="URL"

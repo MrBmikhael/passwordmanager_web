@@ -9,14 +9,16 @@ export interface EntryGridAction extends Action {
   items: Record<string, Entry>
 }
 
-const entryGridLoadData: ActionCreator<EntryGridAction> = (page: number = 1) => {
+const entryGridLoadData: ActionCreator<EntryGridAction> = (page: number | null = null) => {
   const perPage = 20
   const currentStore = store.getState()
   const category = currentStore.Data.SelectedCategory
   const keys = Object.keys(currentStore.Data.Passwords[category].entries)
   const total_pages = Math.ceil(keys.length / perPage)
   const items: Record<string, Entry> = {}
-  keys.slice((page - 1) * perPage, page * perPage).forEach((key: string) => {
+  let new_current_page: number = page || currentStore.UI.EntryGrid.current_page
+
+  keys.slice((new_current_page - 1) * perPage, new_current_page * perPage).forEach((key: string) => {
     items[key] = store.getState().Data.Passwords[category].entries[key]
   })
 
@@ -24,7 +26,7 @@ const entryGridLoadData: ActionCreator<EntryGridAction> = (page: number = 1) => 
     type: EntryGridConstants.ENTRY_GRID_LOAD_DATA,
     total_pages,
     items,
-    current_page: page
+    current_page: new_current_page
   }
 }
 
