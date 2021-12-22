@@ -61,7 +61,6 @@ export const CreateCategory = (props: CreateCategoryProps) => {
         <DialogContent>
           <FormControl variant="outlined" fullWidth margin='dense'>
             <TextField
-              focused
               required
               label="Category"
               id="category"

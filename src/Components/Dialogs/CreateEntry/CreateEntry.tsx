@@ -130,7 +130,6 @@ export const CreateEntry = (props: CreateEntryProps) => {
           <FormControl variant="outlined" fullWidth margin='dense'>
             <TextField
               required
-              focused
               label="Name"
               id="name"
               value={values.name}

@@ -3,39 +3,36 @@ import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
 import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Input from '@mui/material/Input'
 import GlobalActions from '../../../Redux/Store/UI/Global/GlobalActions'
+import { PasswordGeneratorProps } from '../../../Security/PasswordGenerator'
+import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 
 export interface UserSettingsProps {
   isOpen: boolean
 }
 
-interface CreateEntryState {
-  password: string
+interface UserSettingsState {
+  passwordGenerator: PasswordGeneratorProps
 }
 
 const initialState = {
-  password: ''
+  passwordGenerator: {}
 }
 
 export const UserSettings = (props: UserSettingsProps) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
-  const [values, setValues] = useState<CreateEntryState>(initialState)
+  const [values, setValues] = useState<UserSettingsState>(initialState)
 
-  const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({
-      ...values,
-      [changeEvent.target.id]: changeEvent.target.value
-    })
+  const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement> | React.SyntheticEvent<Element, Event>, checked?: boolean) => {
   }
 
   const handleClose = () => {
@@ -61,18 +58,27 @@ export const UserSettings = (props: UserSettingsProps) => {
           {"Settings"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Settings
-          </DialogContentText>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel htmlFor="password">Setting 1</InputLabel>
-            <Input
-              id="password"
-              type='text'
-              value={values.password}
+          <FormControl variant="outlined" fullWidth margin='dense'>
+            <TextField
+              label="Excluded Characters"
+              id="exclude"
+              value={values.passwordGenerator.exclude || ''}
               onChange={handleChange}
             />
           </FormControl>
+
+          <FormControlLabel onChange={handleChange} control={<Checkbox id='symbols' checked={Boolean(values.passwordGenerator.symbols) || false} />} label="Use Symbols" />
+
+          <FormControl variant="outlined" fullWidth margin='dense' disabled={!(Boolean(values.passwordGenerator.symbols) || false)}>
+            <TextField
+              disabled={!(Boolean(values.passwordGenerator.symbols) || false)}
+              label="Allowd Symbols"
+              id="symbols"
+              value={values.passwordGenerator.symbols || ''}
+              onChange={handleChange}
+            />
+          </FormControl>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>
