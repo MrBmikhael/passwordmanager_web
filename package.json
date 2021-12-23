@@ -22,7 +22,7 @@
     "axios": "^0.24.0",
     "check-password-strength": "^2.0.3",
     "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "3.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "generate-password": "^1.7.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",

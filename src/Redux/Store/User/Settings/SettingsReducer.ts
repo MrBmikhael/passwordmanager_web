@@ -6,6 +6,10 @@ import _ from 'lodash'
 
 export interface SettingsState {
   passwordGenerator: PasswordGeneratorProps
+  security: {
+    timeout: number
+    expire: number
+  }
 }
 
 const initialState: SettingsState = {
@@ -15,6 +19,10 @@ const initialState: SettingsState = {
     lowercase: true,
     excludeSimilarCharacters: false,
     symbols: false
+  },
+  security: {
+    timeout: 30,
+    expire: 365
   }
 }
 
@@ -23,6 +31,7 @@ const SettingsReducer: Reducer<SettingsState, SettingsAction> = (state = initial
     case SettingsConstants.UPDATE_SETTINGS:
       const newState = _.cloneDeep(state)
       newState.passwordGenerator = { ...action.newSettings.passwordGenerator }
+      newState.security = { ...action.newSettings.security }
       return newState
     default:
       return state

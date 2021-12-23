@@ -16,9 +16,17 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import { RootState } from '../../../Redux/'
 import { SettingsState } from '../../../Redux/Store/User/Settings/SettingsReducer'
+import { DialogContentText } from '@mui/material'
+import Utils from '../../../Utils'
 
 export interface UserSettingsProps {
   isOpen: boolean
+}
+
+const valueRanges = {
+  'timeout': { 'min': 5 },
+  'expire': { 'min': 1 },
+  'length': { 'min': 1, 'max': 500 }
 }
 
 export const UserSettings = (props: UserSettingsProps) => {
@@ -26,39 +34,47 @@ export const UserSettings = (props: UserSettingsProps) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
   const currentSettings = useSelector((state: RootState) => state.User.Settings)
-  console.log(currentSettings)
   const [values, setValues] = useState<SettingsState>(currentSettings)
 
-  const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement> | React.SyntheticEvent<Element, Event>, checked?: boolean) => {
-    if (checked === undefined) {
-      const id = changeEvent.currentTarget.id
-      let value = _.get(changeEvent.target, 'value')
-      if (id === 'length') {
-        if (Number(value)) {
-          if (value > 500) {
-            value = 500
-          }
-          if (value < 1) {
-            value = 1
-          }
-          setValues({
-            ...values,
-            passwordGenerator: {
-              ...values.passwordGenerator,
-              [id]: value
-            }
-          })
-        }
+  const handleSecurityChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+    const id = changeEvent.currentTarget.id
+    let value: string | number = _.get(changeEvent.target, 'value')
+
+    if (id === 'timeout') value = Utils.forceMin(Number(value), valueRanges.timeout.min)
+    if (id === 'expire') value = Utils.forceMin(Number(value), valueRanges.expire.min)
+
+    setValues({
+      ...values,
+      security: {
+        ...values.security,
+        [id]: value
       }
-      else {
+    })
+  }
+
+  const handlePasswordGeneratorChange = (changeEvent: React.ChangeEvent<HTMLInputElement> | React.SyntheticEvent<Element, Event>, checked?: boolean) => {
+    const id = changeEvent.currentTarget.id
+    let value = _.get(changeEvent.target, 'value')
+
+    if (id === 'length') {
+      if (Number(value)) {
         setValues({
           ...values,
           passwordGenerator: {
             ...values.passwordGenerator,
-            [id]: value
+            [id]: Utils.forceRange(value, valueRanges.length.min, valueRanges.length.max)
           }
         })
       }
+    }
+    else if (id === 'exclude') {
+      setValues({
+        ...values,
+        passwordGenerator: {
+          ...values.passwordGenerator,
+          [id]: value
+        }
+      })
     }
     else {
       setValues({
@@ -92,13 +108,17 @@ export const UserSettings = (props: UserSettingsProps) => {
       >
         <DialogTitle id="responsive-dialog-title">Settings</DialogTitle>
         <DialogContent>
+          <DialogContentText sx={{ marginBottom: '1em' }}>
+            Password generation settings
+          </DialogContentText>
           <FormControl variant="outlined" fullWidth margin='dense'>
             <TextField
               label="Password Length"
               id="length"
               type="number"
+              InputProps={{ inputProps: { min: valueRanges.length.min, max: valueRanges.length.max } }}
               value={values.passwordGenerator.length || 10}
-              onChange={handleChange}
+              onChange={handlePasswordGeneratorChange}
             />
           </FormControl>
 
@@ -107,15 +127,41 @@ export const UserSettings = (props: UserSettingsProps) => {
               label="Excluded Characters"
               id="exclude"
               value={values.passwordGenerator.exclude || ''}
-              onChange={handleChange}
+              onChange={handlePasswordGeneratorChange}
             />
           </FormControl>
 
-          <FormControlLabel onChange={handleChange} control={<Checkbox id='lowercase' checked={values.passwordGenerator.lowercase} />} label="Lowercase" />
-          <FormControlLabel onChange={handleChange} control={<Checkbox id='uppercase' checked={values.passwordGenerator.uppercase} />} label="Uppercase" />
-          <FormControlLabel onChange={handleChange} control={<Checkbox id='numbers' checked={values.passwordGenerator.numbers} />} label="Numbers" />
-          <FormControlLabel onChange={handleChange} control={<Checkbox id='symbols' checked={values.passwordGenerator.symbols} />} label="Symbols" />
-          <FormControlLabel onChange={handleChange} control={<Checkbox id='excludeSimilarCharacters' checked={values.passwordGenerator.excludeSimilarCharacters} />} label="Exclude Similar Characters" />
+          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='lowercase' checked={values.passwordGenerator.lowercase} />} label="Lowercase" />
+          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='uppercase' checked={values.passwordGenerator.uppercase} />} label="Uppercase" />
+          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='numbers' checked={values.passwordGenerator.numbers} />} label="Numbers" />
+          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='symbols' checked={values.passwordGenerator.symbols} />} label="Symbols" />
+          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='excludeSimilarCharacters' checked={values.passwordGenerator.excludeSimilarCharacters} />} label="Exclude Similar Characters" />
+
+          <DialogContentText sx={{ margin: '1em' }}>
+            Security settings
+          </DialogContentText>
+
+          <FormControl variant="outlined" fullWidth margin='dense'>
+            <TextField
+              label="Lock after inactivity (seconds)"
+              id="timeout"
+              type="number"
+              InputProps={{ inputProps: { min: valueRanges.timeout.min } }}
+              value={values.security.timeout}
+              onChange={handleSecurityChange}
+            />
+          </FormControl>
+
+          <FormControl variant="outlined" fullWidth margin='dense'>
+            <TextField
+              label="Password expires after (days)"
+              id="expire"
+              type="number"
+              InputProps={{ inputProps: { min: valueRanges.expire.min } }}
+              value={values.security.expire}
+              onChange={handleSecurityChange}
+            />
+          </FormControl>
 
         </DialogContent>
         <DialogActions>
