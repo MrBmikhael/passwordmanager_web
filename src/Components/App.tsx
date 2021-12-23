@@ -10,9 +10,9 @@ import { useLogin } from './LoginWithGoogle/LoginWithGoogle'
 
 const AppLoadingContent = () => {
   return (
-    <>
+    <div style={{ display: 'flex', justifyContent: 'center', overflow: 'hidden', position: 'absolute', alignItems: 'center', width: '100%', height: '100%' }}>
       <ProgressCircle />
-    </>
+    </div>
   )
 }
 
