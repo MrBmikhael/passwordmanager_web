@@ -22,6 +22,7 @@
     "axios": "^0.24.0",
     "check-password-strength": "^2.0.3",
     "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "3.3.0",
     "generate-password": "^1.7.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
@@ -44,6 +45,7 @@
     "test": "react-scripts test",
     "test:ci": "react-scripts test --ci --watchAll=false --collectCoverage",
     "test:snapshot": "react-scripts test --watchAll=false --update-snapshot",
+    "commit": "cz",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -56,5 +58,10 @@
     ">0.2%",
     "not dead",
     "not op_mini all"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
