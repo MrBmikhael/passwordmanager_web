@@ -1,21 +1,16 @@
 {
   "files": {
-    "main.js": "/passwordmanager_web/static/js/main.9811ed9b.chunk.js",
-    "main.js.map": "/passwordmanager_web/static/js/main.9811ed9b.chunk.js.map",
+    "main.js": "/passwordmanager_web/static/js/main.6bf9724c.chunk.js",
     "runtime-main.js": "/passwordmanager_web/static/js/runtime-main.faf67e9c.js",
-    "runtime-main.js.map": "/passwordmanager_web/static/js/runtime-main.faf67e9c.js.map",
-    "static/js/2.03a105b8.chunk.js": "/passwordmanager_web/static/js/2.03a105b8.chunk.js",
-    "static/js/2.03a105b8.chunk.js.map": "/passwordmanager_web/static/js/2.03a105b8.chunk.js.map",
+    "static/js/2.93a02e35.chunk.js": "/passwordmanager_web/static/js/2.93a02e35.chunk.js",
     "static/js/3.27adae7e.chunk.js": "/passwordmanager_web/static/js/3.27adae7e.chunk.js",
-    "static/js/3.27adae7e.chunk.js.map": "/passwordmanager_web/static/js/3.27adae7e.chunk.js.map",
     "index.html": "/passwordmanager_web/index.html",
     "service-worker.js": "/passwordmanager_web/service-worker.js",
-    "service-worker.js.map": "/passwordmanager_web/service-worker.js.map",
-    "static/js/2.03a105b8.chunk.js.LICENSE.txt": "/passwordmanager_web/static/js/2.03a105b8.chunk.js.LICENSE.txt"
+    "static/js/2.93a02e35.chunk.js.LICENSE.txt": "/passwordmanager_web/static/js/2.93a02e35.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.faf67e9c.js",
-    "static/js/2.03a105b8.chunk.js",
-    "static/js/main.9811ed9b.chunk.js"
+    "static/js/2.93a02e35.chunk.js",
+    "static/js/main.6bf9724c.chunk.js"
   ]
 }
