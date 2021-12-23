@@ -35,8 +35,8 @@ export const UserSettings = (props: UserSettingsProps) => {
       let value = _.get(changeEvent.target, 'value')
       if (id === 'length') {
         if (Number(value)) {
-          if (value > 100) {
-            value = 100
+          if (value > 500) {
+            value = 500
           }
           if (value < 1) {
             value = 1
