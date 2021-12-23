@@ -1,6 +1,6 @@
 import React from 'react'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
 
-export const ProgressCircle = () => {
-  return <CircularProgress />
+export const ProgressCircle = (props: CircularProgressProps) => {
+  return <CircularProgress {...props} />
 }

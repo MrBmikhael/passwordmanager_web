@@ -10,3 +10,5 @@ const updateSettings: ActionCreator<SettingsAction> = (newSettings: SettingsStat
   type: SettingsConstants.UPDATE_SETTINGS,
   newSettings
 })
+
+export default updateSettings

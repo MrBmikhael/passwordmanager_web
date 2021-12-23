@@ -7,12 +7,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import GlobalActions from '../Redux/Store/UI/Global/GlobalActions'
 import { RootState } from '../Redux'
 import { useLogin } from './LoginWithGoogle/LoginWithGoogle'
+import { Stack, Typography } from '@mui/material'
 
 const AppLoadingContent = () => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', overflow: 'hidden', position: 'absolute', alignItems: 'center', width: '100%', height: '100%' }}>
+    <Stack sx={{ marginTop: '50px' }} spacing={3} alignContent={'center'} alignItems={'center'}>
       <ProgressCircle />
-    </div>
+      <Typography>
+        Loading ...
+      </Typography>
+    </Stack>
   )
 }
 

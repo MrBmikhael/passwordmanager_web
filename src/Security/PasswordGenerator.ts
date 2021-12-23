@@ -3,12 +3,12 @@ import { passwordStrength, Options } from 'check-password-strength'
 
 export interface PasswordGeneratorProps {
   length?: number
+  exclude?: string
+  symbols?: boolean
   numbers?: boolean
-  symbols?: boolean | string
   lowercase?: boolean
   uppercase?: boolean
   excludeSimilarCharacters?: boolean
-  exclude?: string
 }
 
 export const generatePassword = (props?: PasswordGeneratorProps) => {

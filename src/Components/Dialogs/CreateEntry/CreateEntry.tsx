@@ -64,7 +64,7 @@ export const CreateEntry = (props: CreateEntryProps) => {
 
   const [values, setValues] = useState<CreateEntryState>(initialState)
   const currentCategory = useSelector((state: RootState) => state.Data.SelectedCategory)
-  const pwGenerationSettings = useSelector((state: RootState) => state.User.Settings.passwordGen)
+  const pwGenerationSettings = useSelector((state: RootState) => state.User.Settings.passwordGenerator)
 
   const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
