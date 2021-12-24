@@ -59,7 +59,7 @@ export const checkPasswordStrength = (password: string) => {
   const strengthOptions: Options<string> = [
     {
       id: 0,
-      value: "Too weak",
+      value: "Too Weak",
       minDiversity: 0,
       minLength: 0
     },
