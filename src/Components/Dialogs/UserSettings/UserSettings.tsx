@@ -72,7 +72,7 @@ export const UserSettings = (props: UserSettingsProps) => {
         ...values,
         passwordGenerator: {
           ...values.passwordGenerator,
-          [id]: value
+          [id]: String(value)
         }
       })
     }
@@ -81,7 +81,7 @@ export const UserSettings = (props: UserSettingsProps) => {
         ...values,
         passwordGenerator: {
           ...values.passwordGenerator,
-          [changeEvent.currentTarget.id]: checked
+          [id]: checked
         }
       })
     }
@@ -117,25 +117,24 @@ export const UserSettings = (props: UserSettingsProps) => {
               id="length"
               type="number"
               InputProps={{ inputProps: { min: valueRanges.length.min, max: valueRanges.length.max } }}
-              value={values.passwordGenerator.length || 10}
+              value={values.passwordGenerator.length}
               onChange={handlePasswordGeneratorChange}
             />
           </FormControl>
 
           <FormControl variant="outlined" fullWidth margin='dense'>
             <TextField
-              label="Excluded Characters"
+              label="Exclude Characters"
               id="exclude"
-              value={values.passwordGenerator.exclude || ''}
+              value={values.passwordGenerator.exclude}
               onChange={handlePasswordGeneratorChange}
             />
           </FormControl>
 
-          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='lowercase' checked={values.passwordGenerator.lowercase} />} label="Lowercase" />
+          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='lowercase' checked={values.passwordGenerator.lowercase} />} label="Lowercase" disabled={true} />
           <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='uppercase' checked={values.passwordGenerator.uppercase} />} label="Uppercase" />
           <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='numbers' checked={values.passwordGenerator.numbers} />} label="Numbers" />
           <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='symbols' checked={values.passwordGenerator.symbols} />} label="Symbols" />
-          <FormControlLabel onChange={handlePasswordGeneratorChange} control={<Checkbox id='excludeSimilarCharacters' checked={values.passwordGenerator.excludeSimilarCharacters} />} label="Exclude Similar Characters" />
 
           <DialogContentText sx={{ margin: '1em' }}>
             Security settings

@@ -17,8 +17,9 @@ const initialState: SettingsState = {
     length: 10,
     uppercase: true,
     lowercase: true,
-    excludeSimilarCharacters: false,
-    symbols: false
+    symbols: false,
+    numbers: false,
+    exclude: ''
   },
   security: {
     timeout: 30,
