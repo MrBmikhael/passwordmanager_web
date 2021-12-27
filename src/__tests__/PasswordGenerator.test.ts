@@ -49,6 +49,95 @@ test('Exclude all chars', () => {
   expect(passwd).toEqual('')
 })
 
+test('Include all types', () => {
+  let props: PasswordGeneratorProps = {
+    length: 50,
+    lowercase: true,
+    symbols: true,
+    uppercase: true,
+    numbers: true,
+    exclude: ''
+  }
+
+  for (let i = 0; i < 20; i++) {
+    const passwd = generatePassword(props)
+    expect(passwd).toMatch(new RegExp('[a-z]', 'g'))
+    expect(passwd).toMatch(new RegExp('[A-Z]', 'g'))
+    expect(passwd).toMatch(new RegExp('[0-9]', 'g'))
+    expect(passwd).toMatch(new RegExp('[!@#$%\^&_\*]', 'g'))
+  }
+
+  props = {
+    length: 50,
+    lowercase: true,
+    symbols: false,
+    uppercase: true,
+    numbers: true,
+    exclude: ''
+  }
+
+  for (let i = 0; i < 20; i++) {
+    const passwd = generatePassword(props)
+    expect(passwd).toMatch(new RegExp('[a-z]', 'g'))
+    expect(passwd).toMatch(new RegExp('[A-Z]', 'g'))
+    expect(passwd).toMatch(new RegExp('[0-9]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[!@#$%\^&_\*]', 'g'))
+  }
+
+  props = {
+    length: 50,
+    lowercase: true,
+    symbols: false,
+    uppercase: false,
+    numbers: true,
+    exclude: ''
+  }
+
+  for (let i = 0; i < 20; i++) {
+    const passwd = generatePassword(props)
+    expect(passwd).toMatch(new RegExp('[a-z]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[A-Z]', 'g'))
+    expect(passwd).toMatch(new RegExp('[0-9]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[!@#$%\^&_\*]', 'g'))
+  }
+
+  props = {
+    length: 50,
+    lowercase: true,
+    symbols: false,
+    uppercase: false,
+    numbers: false,
+    exclude: ''
+  }
+
+  for (let i = 0; i < 20; i++) {
+    const passwd = generatePassword(props)
+    expect(passwd).toMatch(new RegExp('[a-z]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[A-Z]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[0-9]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[!@#$%\^&_\*]', 'g'))
+  }
+
+  // Force lowercase
+  props = {
+    length: 50,
+    lowercase: false,
+    symbols: false,
+    uppercase: false,
+    numbers: false,
+    exclude: ''
+  }
+
+  for (let i = 0; i < 20; i++) {
+    const passwd = generatePassword(props)
+    expect(passwd).toMatch(new RegExp('[a-z]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[A-Z]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[0-9]', 'g'))
+    expect(passwd).not.toMatch(new RegExp('[!@#$%\^&_\*]', 'g'))
+  }
+
+})
+
 test('Check password strength', () => {
   const data = [
     { pass: '', expected: { contains: [], length: 0, id: 0, value: 'Too Weak' } },
