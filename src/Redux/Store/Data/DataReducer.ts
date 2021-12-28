@@ -25,7 +25,7 @@ export interface DataState {
 
 const initialState = (): DataState => {
   const defaultCategory: Category = { entries: {} }
-  const defaultCategoryName: string = "General"
+  const defaultCategoryName = 'General'
   return (
     {
       Passwords: {
@@ -41,39 +41,45 @@ const initialState = (): DataState => {
 
 const DataReducer: Reducer<DataState, DataAction> = (state = initialState(), action: DataAction) => {
   switch (action.type) {
-    case DataConstants.EntryConstants.CREATE_ENTRY:
-      const user = _.get(action, 'entry_user')
-      const pass = _.get(action, 'entry_pass', '')
+    case DataConstants.EntryConstants.CREATE_ENTRY: {
+      const user = _.get(action, 'entryUser')
+      const pass = _.get(action, 'entryPass', '')
       const url = _.get(action, 'url', '')
       const name = _.get(action, 'name', '')
       const masterPassword = _.get(action, 'masterPassword', '')
 
       if (user) {
-        const id: string = '_' + Math.random().toString(36).substring(2, 16)
-        const encrypted = AES.encrypt(JSON.stringify({ id, user, pass, url, name }), masterPassword)
-        const newEntry: Entry = { id, user, pass, url, name, encrypted }
-        const SelectedCategory: string = state.SelectedCategory
+        const id = `_${Math.random().toString(36).substring(2, 16)}`
+        const encrypted = AES.encrypt(JSON.stringify({
+          id, user, pass, url, name
+        }), masterPassword)
+        const newEntry: Entry = {
+          id, user, pass, url, name, encrypted
+        }
+        const { SelectedCategory } = state
         const newState = _.cloneDeep(state)
         newState.Passwords[SelectedCategory].entries[id] = newEntry
         return newState
       }
 
       return state
-    case DataConstants.CategoryConstants.CHANGE_SELECTED_CATEGORY:
-      if (state.SelectedCategory !== action.category_name) {
+    }
+    case DataConstants.CategoryConstants.CHANGE_SELECTED_CATEGORY: {
+      if (state.SelectedCategory !== action.categoryName) {
         const newState = _.cloneDeep(state)
-        newState.SelectedCategory = action.category_name
+        newState.SelectedCategory = action.categoryName
         return newState
       }
       return state
-    case DataConstants.CategoryConstants.CREATE_CATEGORY:
+    }
+    case DataConstants.CategoryConstants.CREATE_CATEGORY: {
       const newState = _.cloneDeep(state)
-      newState.Passwords[action.category_name] = { entries: {} }
+      newState.Passwords[action.categoryName] = { entries: {} }
       return newState
+    }
     default:
       return state
   }
-
 }
 
 export default DataReducer

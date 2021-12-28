@@ -13,15 +13,14 @@ import FolderIcon from '@mui/icons-material/Folder'
 import FolderOpenIcon from '@mui/icons-material/FolderOpen'
 import Toolbar from '@mui/material/Toolbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../Redux'
-import DataActions from '../../Redux/Store/Data/DataActions'
 import ListItemButton from '@mui/material/ListItemButton'
 import Collapse from '@mui/material/Collapse'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import DataActions from '../../Redux/Store/Data/DataActions'
+import Store, { RootState } from '../../Redux'
 import EntryGridActions from '../../Redux/Store/UI/EntryGrid/EntryGridActions'
-import Store from '../../Redux'
 
-const drawerWidth: number = 240
+const drawerWidth = 240
 
 interface expansionState {
   Passwords: boolean,
@@ -33,20 +32,20 @@ const initialExpansionState: expansionState = {
   Files: false
 }
 
-export const NavDrawer = () => {
+export function NavDrawer(): React.ReactElement {
   const dispatch = useDispatch()
   const userData = useSelector((state: RootState) => (state.Data))
 
   const [expansionState, setExpansion] = useState(initialExpansionState)
 
-  const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {
+  const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string): void => {
     if (userData.SelectedCategory !== newKey) {
       dispatch(DataActions.CategoryActions.changeSelectedCategory(newKey))
       dispatch(EntryGridActions.entryGridLoadData(1, Store.getState().UI.EntryGrid.keyword))
     }
   }
 
-  const handleListExpansion = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {
+  const handleListExpansion = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string): void => {
     setExpansion((state) => ({
       ...state,
       [newKey]: !_.get(state, newKey)
@@ -59,7 +58,7 @@ export const NavDrawer = () => {
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+        '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' }
       }}
     >
       <Toolbar />
@@ -75,16 +74,14 @@ export const NavDrawer = () => {
           <Collapse in={expansionState.Passwords} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {
-                Object.keys(userData.Passwords).map((category_name: string) => {
-                  return (
-                    <ListItem button key={category_name} onClick={(event) => handleListItemClick(event, category_name)} sx={{ pl: 4, height: 56 }}>
-                      <ListItemIcon>
-                        {(userData.SelectedCategory === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
-                      </ListItemIcon>
-                      <ListItemText primary={category_name} />
-                    </ListItem>
-                  )
-                })
+                Object.keys(userData.Passwords).map((categoryName: string) => (
+                  <ListItem button key={categoryName} onClick={(event) => handleListItemClick(event, categoryName)} sx={{ pl: 4, height: 56 }}>
+                    <ListItemIcon>
+                      {(userData.SelectedCategory === categoryName) ? <FolderOpenIcon /> : <FolderIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={categoryName} />
+                  </ListItem>
+                ))
               }
             </List>
           </Collapse>
@@ -101,16 +98,14 @@ export const NavDrawer = () => {
           <Collapse in={expansionState.Files} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {
-                Object.keys(userData.Files).map((category_name: string) => {
-                  return (
-                    <ListItem button key={category_name} onClick={(event) => handleListItemClick(event, category_name)} sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        {(userData.SelectedCategory === category_name) ? <FolderOpenIcon /> : <FolderIcon />}
-                      </ListItemIcon>
-                      <ListItemText primary={category_name} />
-                    </ListItem>
-                  )
-                })
+                Object.keys(userData.Files).map((categoryName: string) => (
+                  <ListItem button key={categoryName} onClick={(event) => handleListItemClick(event, categoryName)} sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      {(userData.SelectedCategory === categoryName) ? <FolderOpenIcon /> : <FolderIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={categoryName} />
+                  </ListItem>
+                ))
               }
             </List>
           </Collapse>

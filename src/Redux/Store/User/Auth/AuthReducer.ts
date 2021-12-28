@@ -1,7 +1,7 @@
 import { Reducer } from 'redux'
+import { GoogleLoginResponse } from 'react-google-login'
 import AuthConstats from './AuthConstants'
 import { AuthAction } from './AuthActions'
-import { GoogleLoginResponse } from 'react-google-login'
 
 export interface AuthState {
   GoogleToken: GoogleLoginResponse | undefined

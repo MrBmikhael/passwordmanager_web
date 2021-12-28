@@ -1,8 +1,8 @@
 import { Reducer } from 'redux'
-import SettingsConstants from './SettingsConstants'
+import _ from 'lodash'
 import { SettingsAction } from './SettingsActions'
 import { PasswordGeneratorProps } from '../../../../Security/PasswordGenerator'
-import _ from 'lodash'
+import SettingsConstants from './SettingsConstants'
 
 export interface SettingsState {
   passwordGenerator: PasswordGeneratorProps
@@ -29,11 +29,12 @@ const initialState: SettingsState = {
 
 const SettingsReducer: Reducer<SettingsState, SettingsAction> = (state = initialState, action: SettingsAction) => {
   switch (action.type) {
-    case SettingsConstants.UPDATE_SETTINGS:
+    case SettingsConstants.UPDATE_SETTINGS: {
       const newState = _.cloneDeep(state)
       newState.passwordGenerator = { ...action.newSettings.passwordGenerator }
       newState.security = { ...action.newSettings.security }
       return newState
+    }
     default:
       return state
   }

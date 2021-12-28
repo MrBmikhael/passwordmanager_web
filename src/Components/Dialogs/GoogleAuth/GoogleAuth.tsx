@@ -7,18 +7,14 @@ import { useSelector } from 'react-redux'
 import { LoginWithGoogle } from '../../LoginWithGoogle/LoginWithGoogle'
 import { RootState } from '../../../Redux'
 
-interface GoogleAuthProps {
-  isOpen: boolean
-}
-
-export const GoogleAuth = (props: GoogleAuthProps) => {
+export function GoogleAuth(): React.ReactElement {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const auth = useSelector((state: RootState) => state.User.Auth.GoogleToken)
 
   return (
     <div>
-      <Dialog fullScreen={fullScreen} open={!Boolean(auth)} >
+      <Dialog fullScreen={fullScreen} open={!auth}>
         <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <LoginWithGoogle />
         </DialogContent>

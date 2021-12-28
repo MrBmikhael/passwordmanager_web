@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import App from './Components/App'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import store from './Redux'
-import { Provider } from 'react-redux'
 
 ReactDOM.render(
   <React.StrictMode>

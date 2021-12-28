@@ -27,35 +27,39 @@ const initialState: CardState = {
   elevation: 1
 }
 
-const EntryCard = (props: EntryCardProps) => {
+function EntryCard(props: EntryCardProps): React.ReactElement {
   const [state, setState] = useState(initialState)
 
-  const copyCellData = async (str: string) => {
+  const copyCellData = async (str: string): Promise<void> => {
     if (navigator.clipboard) {
       await navigator.clipboard.writeText(str)
     }
   }
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setState((pState) => ({ ...pState, anchorEl: event.currentTarget }))
   }
 
-  const handleEditClick = () => {
-    handleClose()
-  }
-
-  const handleDeleteClick = () => {
-    handleClose()
-  }
-
-  const handleClose = () => {
+  const handleClose = (): void => {
     setState((pState) => ({ ...pState, anchorEl: null }))
   }
 
-  const isUrl = (props.url && props.url !== 'http://' && props.url !== 'https://')
+  const handleEditClick = (): void => {
+    handleClose()
+  }
 
-  const cardAction = () => {
-    return (<span>
+  const handleDeleteClick = (): void => {
+    handleClose()
+  }
+
+  const {
+    url, name, user, pass
+  } = props
+
+  const isUrl = (url && url !== 'http://' && url !== 'https://')
+
+  const cardAction = (): React.ReactElement => (
+    <span>
       <IconButton onClick={handleMenu}>
         <MoreIcon />
       </IconButton>
@@ -64,12 +68,12 @@ const EntryCard = (props: EntryCardProps) => {
         anchorEl={state.anchorEl}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         keepMounted
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'right'
         }}
         open={Boolean(state.anchorEl)}
         onClose={handleClose}
@@ -81,20 +85,20 @@ const EntryCard = (props: EntryCardProps) => {
           Delete
         </MenuItem>
       </Menu>
-    </span>)
-  }
+    </span>
+  )
 
-  const cardHeader = () => {
+  const cardHeader = (): React.ReactElement => {
     if (isUrl) {
-      return <Link underline="hover" variant='body2' href={props.url} target={"_blank"}>{props.url}</Link>
+      return <Link underline="hover" variant="body2" href={url} target="_blank">{url}</Link>
     }
+    return <span />
   }
 
-  const updateElevation = () => {
+  const updateElevation = (): void => {
     if (state.elevation === 7) {
       setState((pState) => ({ ...pState, elevation: 1 }))
-    }
-    else {
+    } else {
       setState((pState) => ({ ...pState, elevation: 7 }))
     }
   }
@@ -102,31 +106,33 @@ const EntryCard = (props: EntryCardProps) => {
   let iconUrl = ''
 
   if (isUrl) {
-    iconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${props.url.replace('http://', '').replace('https://', '')}`
-  }
-  else {
+    iconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${url.replace('http://', '').replace('https://', '')}`
+  } else {
     iconUrl = 'https://www.google.com/s2/favicons?sz=64&domain=nothing'
   }
-
 
   return (
     <Card elevation={state.elevation} onMouseEnter={updateElevation} onMouseLeave={updateElevation} sx={{ minWidth: '300px', maxWidth: '500px' }}>
       <CardHeader
-        avatar={
+        avatar={(
           <Avatar sx={{ bgcolor: '#fff' }} src={iconUrl} aria-label="recipe">
-            {props.name.substring(0, 1)}
+            {name.substring(0, 1)}
           </Avatar>
-        }
+        )}
         action={cardAction()}
-        title={<Typography noWrap maxWidth={200}>{props.name}</Typography>}
+        title={<Typography noWrap maxWidth={200}>{name}</Typography>}
         subheader={cardHeader()}
       />
       <CardContent>
-        <Typography noWrap gutterBottom variant="body2" color="text.secondary" onClick={() => copyCellData(props.user)}>
-          Username: {props.user}
+        <Typography noWrap gutterBottom variant="body2" color="text.secondary" onClick={() => copyCellData(user)}>
+          Username:
+          {' '}
+          {user}
         </Typography>
-        <Typography noWrap gutterBottom variant="body2" color="text.secondary" onClick={() => copyCellData(props.pass)}>
-          Password: {props.pass}
+        <Typography noWrap gutterBottom variant="body2" color="text.secondary" onClick={() => copyCellData(pass)}>
+          Password:
+          {' '}
+          {pass}
         </Typography>
       </CardContent>
     </Card>

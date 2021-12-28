@@ -7,16 +7,16 @@ import { GoogleAuth } from './GoogleAuth/GoogleAuth'
 import { MasterPassword } from './MasterPassword/MasterPassword'
 import { UserSettings } from './UserSettings/UserSettings'
 
-export const Dialogs = () => {
-  const state = useSelector((state: RootState) => state.UI.Global)
+export function Dialogs(): React.ReactElement {
+  const dialogsState = useSelector((state: RootState) => state.UI.Global)
 
   return (
     <>
-      <GoogleAuth isOpen={true} />
-      <CreateCategory isOpen={state.NewCategory} />
-      <CreateEntry isOpen={state.NewEntry} />
-      <MasterPassword isOpen={state.MasterPassword} />
-      <UserSettings isOpen={state.UserSettings} />
+      <GoogleAuth />
+      <CreateCategory isOpen={dialogsState.NewCategory} />
+      <CreateEntry isOpen={dialogsState.NewEntry} />
+      <MasterPassword isOpen={dialogsState.MasterPassword} />
+      <UserSettings isOpen={dialogsState.UserSettings} />
     </>
   )
 }

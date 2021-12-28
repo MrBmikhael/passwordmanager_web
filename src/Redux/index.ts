@@ -21,13 +21,12 @@ const rootReducer = combineReducers<RootState>({
 
 const sagaMiddleware = createSagaMiddleware()
 
-let enhancer = undefined
+let enhancer
 const middleware = [sagaMiddleware]
 
 if (process.env.NODE_ENV === 'development') {
   enhancer = composeWithDevTools(applyMiddleware(createLogger(), ...middleware))
-}
-else {
+} else {
   enhancer = applyMiddleware(...middleware)
 }
 

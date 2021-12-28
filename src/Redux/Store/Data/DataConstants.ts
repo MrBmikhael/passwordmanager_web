@@ -1,4 +1,3 @@
-
 const EntryConstants = {
   CREATE_ENTRY: 'CREATE_ENTRY',
   DELETE_ENTRY: 'DELETE_ENTRY'

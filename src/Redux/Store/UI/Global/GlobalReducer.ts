@@ -47,7 +47,7 @@ const GlobalReducer: Reducer<GlobalState, Action> = (state = initialState, actio
     case GlobalConstants.CLOSE_DIALOG:
       return {
         ...initialState,
-        AppLoading: false,
+        AppLoading: false
       }
     default:
       return state

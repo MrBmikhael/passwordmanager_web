@@ -4,15 +4,15 @@ import { EntryGridAction } from './EntryGridActions'
 import { Entry } from '../../Data'
 
 export interface EntryGridState {
-  current_page: number
-  total_pages: number
+  currentPage: number
+  totalPages: number
   items: Record<string, Entry>
   keyword: string
 }
 
 const initialState = {
-  current_page: 1,
-  total_pages: 0,
+  currentPage: 1,
+  totalPages: 0,
   items: {},
   keyword: ''
 }
@@ -21,8 +21,8 @@ const EntryGridReducer: Reducer<EntryGridState, EntryGridAction> = (state = init
   switch (action.type) {
     case EntryGridConstants.ENTRY_GRID_LOAD_DATA:
       return {
-        total_pages: action.total_pages,
-        current_page: action.current_page,
+        totalPages: action.totalPages,
+        currentPage: action.currentPage,
         items: action.items,
         keyword: action.keyword
       }

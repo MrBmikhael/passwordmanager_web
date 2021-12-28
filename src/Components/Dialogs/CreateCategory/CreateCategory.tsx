@@ -8,9 +8,9 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { useDispatch } from 'react-redux'
 import FormControl from '@mui/material/FormControl'
+import TextField from '@mui/material/TextField'
 import GlobalActions from '../../../Redux/Store/UI/Global/GlobalActions'
 import DataActions from '../../../Redux/Store/Data/DataActions'
-import TextField from '@mui/material/TextField'
 
 export interface CreateCategoryProps {
   isOpen: boolean
@@ -22,44 +22,46 @@ interface CreateCategoryState {
 
 const initialState: CreateCategoryState = { category: '' }
 
-export const CreateCategory = (props: CreateCategoryProps) => {
+export function CreateCategory(props: CreateCategoryProps): React.ReactElement {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
   const [values, setValues] = useState<CreateCategoryState>(initialState)
 
-  const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>): void => {
     setValues({
       ...values,
       [changeEvent.target.id]: changeEvent.target.value
     })
   }
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setValues(() => initialState)
     dispatch(GlobalActions.closeAllDialogs())
   }
 
-  const handleCreateAndClose = () => {
+  const handleCreateAndClose = (): void => {
     if (values.category) {
       dispatch(DataActions.CategoryActions.createNewCategory(values.category))
     }
     handleClose()
   }
 
+  const { isOpen } = props
+
   return (
     <div>
       <Dialog
         fullScreen={fullScreen}
-        open={props.isOpen}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          {"Create A New Category"}
+          Create A New Category
         </DialogTitle>
         <DialogContent>
-          <FormControl variant="outlined" fullWidth margin='dense'>
+          <FormControl variant="outlined" fullWidth margin="dense">
             <TextField
               required
               label="Category"

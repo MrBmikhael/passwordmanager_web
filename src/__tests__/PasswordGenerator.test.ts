@@ -50,9 +50,9 @@ test('Exclude all chars', () => {
 })
 
 test('Include all types', () => {
-  const lowercaseRegex = /'[a-z]/g
+  const lowercaseRegex = /[a-z]/g
   const uppercaseRegex = /[A-Z]/g
-  const numbersRegex = /'[0-9]/g
+  const numbersRegex = /[0-9]/g
   const symbolsRegex = /[!@#$%^&_*]/g
 
   let props: PasswordGeneratorProps = {

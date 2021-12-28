@@ -8,7 +8,7 @@ import { NavDrawer } from '../NavDrawer/NavDrawer'
 import { Dialogs } from '../Dialogs/Dialogs'
 import EntryGrid from '../EntryGrid/EntryGrid'
 
-export const Navigator = () => {
+export function Navigator(): React.ReactElement {
   return (
     <Box sx={{ display: 'flex' }}>
       <Dialogs />

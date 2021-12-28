@@ -1,17 +1,17 @@
 import React from 'react'
+import { useTimeout } from 'usehooks-ts'
+import { useDispatch, useSelector } from 'react-redux'
+import { Stack, Typography } from '@mui/material'
 import { Navigator } from './Navigator/Navigator'
 import { GlobalAlertSnackbar } from './AlertSnackbar/AlertSnackbar'
 import { ProgressCircle } from './ProgressCircle/ProgressCircle'
-import { useTimeout } from 'usehooks-ts'
-import { useDispatch, useSelector } from 'react-redux'
 import GlobalActions from '../Redux/Store/UI/Global/GlobalActions'
 import { RootState } from '../Redux'
 import { useLogin } from './LoginWithGoogle/LoginWithGoogle'
-import { Stack, Typography } from '@mui/material'
 
-const AppLoadingContent = () => {
+function AppLoadingContent(): React.ReactElement {
   return (
-    <Stack sx={{ marginTop: '50px' }} spacing={3} alignContent={'center'} alignItems={'center'}>
+    <Stack sx={{ marginTop: '50px' }} spacing={3} alignContent="center" alignItems="center">
       <ProgressCircle />
       <Typography>
         Loading ...
@@ -20,15 +20,13 @@ const AppLoadingContent = () => {
   )
 }
 
-const MainAppContent = () => {
+function MainAppContent(): React.ReactElement {
   return (
-    <>
-      <Navigator />
-    </>
+    <Navigator />
   )
 }
 
-const App = () => {
+function App(): React.ReactElement {
   const dispatch = useDispatch()
   useLogin()
   useTimeout(() => {

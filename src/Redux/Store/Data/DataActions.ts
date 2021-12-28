@@ -2,29 +2,29 @@ import { Action, ActionCreator } from 'redux'
 import { DataConstants } from './DataConstants'
 
 export interface DataAction extends Action {
-  category_name: string
-  new_category_name?: string
-  entry_user?: string
-  entry_pass?: string
-  entry_id?: string
+  categoryName: string
+  newCategoryName?: string
+  entryUser?: string
+  entryPass?: string
+  entryId?: string
   url?: string
 }
 
-const createNewCategory: ActionCreator<DataAction> = (category_name: string) => ({
-  type: DataConstants.CategoryConstants.CREATE_CATEGORY, category_name
+const createNewCategory: ActionCreator<DataAction> = (categoryName: string) => ({
+  type: DataConstants.CategoryConstants.CREATE_CATEGORY, categoryName
 })
-const deleteCategory: ActionCreator<DataAction> = (category_name: string) => ({
-  type: DataConstants.CategoryConstants.DELETE_CATEGORY, category_name
+const deleteCategory: ActionCreator<DataAction> = (categoryName: string) => ({
+  type: DataConstants.CategoryConstants.DELETE_CATEGORY, categoryName
 })
-const changeSelectedCategory: ActionCreator<DataAction> = (category_name: string) => ({
-  type: DataConstants.CategoryConstants.CHANGE_SELECTED_CATEGORY, category_name
+const changeSelectedCategory: ActionCreator<DataAction> = (categoryName: string) => ({
+  type: DataConstants.CategoryConstants.CHANGE_SELECTED_CATEGORY, categoryName
 })
 
-const createNewEntry: ActionCreator<DataAction> = (category_name: string, entry_user: string, entry_pass: string, url: string, name: string, masterPassword: string) => ({
-  type: DataConstants.EntryConstants.CREATE_ENTRY, category_name, entry_user, entry_pass, url, name, masterPassword
+const createNewEntry: ActionCreator<DataAction> = (categoryName: string, entryUser: string, entryPass: string, url: string, name: string, masterPassword: string) => ({
+  type: DataConstants.EntryConstants.CREATE_ENTRY, categoryName, entryUser, entryPass, url, name, masterPassword
 })
-const deleteEntry: ActionCreator<DataAction> = (category_name: string, entry_id: string) => ({
-  type: DataConstants.EntryConstants.DELETE_ENTRY, category_name, entry_id
+const deleteEntry: ActionCreator<DataAction> = (categoryName: string, entryId: string) => ({
+  type: DataConstants.EntryConstants.DELETE_ENTRY, categoryName, entryId
 })
 
 const CategoryActions = { createNewCategory, deleteCategory, changeSelectedCategory }

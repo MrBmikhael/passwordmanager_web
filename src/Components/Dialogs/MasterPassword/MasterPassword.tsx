@@ -26,13 +26,15 @@ const initialState = {
   password: ''
 }
 
-export const MasterPassword = (props: MasterPasswordProps) => {
+export function MasterPassword(props: MasterPasswordProps): React.ReactElement {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const dispatch = useDispatch()
   const [values, setValues] = useState<CreateEntryState>(initialState)
 
-  const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  const checkPassword = (password: string): boolean => (password !== '')
+
+  const handleChange = (changeEvent: React.ChangeEvent<HTMLInputElement>): void => {
     if (checkPassword(changeEvent.target.value)) {
       setValues({
         ...values,
@@ -41,11 +43,7 @@ export const MasterPassword = (props: MasterPasswordProps) => {
     }
   }
 
-  const checkPassword = (password: string): boolean => {
-    return false
-  }
-
-  const handleClose = () => {
+  const handleClose = (): void => {
     if (values) {
       dispatch(UserActions.setMasterPassword(values.password))
       setValues(() => initialState)
@@ -53,20 +51,22 @@ export const MasterPassword = (props: MasterPasswordProps) => {
     }
   }
 
-  const handleCreateAndClose = () => {
+  const handleCreateAndClose = (): void => {
     handleClose()
   }
+
+  const { isOpen } = props
 
   return (
     <div>
       <Dialog
         fullScreen={fullScreen}
-        open={props.isOpen}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          {"Enter Your Master Password"}
+          Enter Your Master Password
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -76,7 +76,7 @@ export const MasterPassword = (props: MasterPasswordProps) => {
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"
-              type='text'
+              type="text"
               value={values.password}
               onChange={handleChange}
             />

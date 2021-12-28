@@ -1,0 +1,89 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "react",
+        "react-hooks",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "import/prefer-default-export": "off",
+        "react/prop-types": "off",
+        "default-param-last": [
+            "off"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 180
+            }
+        ],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": [
+            "error"
+        ],
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": [
+            "error"
+        ],
+        "react/jsx-filename-extension": [
+            "warn",
+            {
+                "extensions": [
+                    ".tsx"
+                ]
+            }
+        ],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+            "error",
+            {
+                "allowExpressions": true
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
+    "ignorePatterns": [
+        "src/reportWebVitals.ts",
+        "src/service-worker.ts",
+        "src/serviceWorkerRegistration.ts",
+        "src/setupTests.ts",
+        "src/Redux/Saga/GoogleDrive/GoogleDriveSaga.ts",
+        "src/Redux/Saga/GoogleDrive/Requests/userData.ts"
+    ]
+}

@@ -1,30 +1,30 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
 import SpeedDial from '@mui/material/SpeedDial'
 import SpeedDialIcon from '@mui/material/SpeedDialIcon'
 import SpeedDialAction from '@mui/material/SpeedDialAction'
 import ShortTextIcon from '@mui/icons-material/ShortText'
 import FolderIcon from '@mui/icons-material/Folder'
+import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
 
-export const AddFab = () => {
+export function AddFab(): React.ReactElement {
   const [open, setOpen] = React.useState(false)
   const dispatch = useDispatch()
 
-  const handleOpen = () => {
+  const handleOpen = (): void => {
     setOpen(true)
   }
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setOpen(false)
   }
 
-  const handleNewEntry = () => {
+  const handleNewEntry = (): void => {
     dispatch(GlobalActions.openNewEntryDialog())
     handleClose()
   }
 
-  const handleNewCategory = () => {
+  const handleNewCategory = (): void => {
     dispatch(GlobalActions.openNewCategoryDialog())
     handleClose()
   }

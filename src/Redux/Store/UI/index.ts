@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import SnackbarReducer, { SnackbarState } from "./Snackbar/SnackbarReducer"
-import ProgressBarReducer, { ProgressBarState } from "./ProgressBar/ProgressBarReducer"
-import GlobalReducer, { GlobalState } from "./Global/GlobalReducer"
+import SnackbarReducer, { SnackbarState } from './Snackbar/SnackbarReducer'
+import ProgressBarReducer, { ProgressBarState } from './ProgressBar/ProgressBarReducer'
+import GlobalReducer, { GlobalState } from './Global/GlobalReducer'
 import EntryGridReducer, { EntryGridState } from './EntryGrid/EntryGridReducer'
 
 export interface UIState {
