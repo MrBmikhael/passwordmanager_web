@@ -17,7 +17,6 @@ import { Logout } from '../LoginWithGoogle/LoginWithGoogle'
 import { LinearProgressBar } from '../LinearProgressBar/LinearProgressBar'
 import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
 import EntryGridActions from '../../Redux/Store/UI/EntryGrid/EntryGridActions'
-import DataActions from '../../Redux/Store/Data/DataActions'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
