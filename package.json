@@ -51,7 +51,7 @@
     "test": "react-scripts test",
     "test:ci": "react-scripts test --ci --watchAll=false --collectCoverage",
     "test:snapshot": "react-scripts test --watchAll=false --update-snapshot",
-    "lint": "eslint 'src/**/*.ts'",
+    "lint": "eslint 'src/**/*.ts' 'src/**/*.tsx'",
     "commit": "cz",
     "eject": "react-scripts eject"
   },

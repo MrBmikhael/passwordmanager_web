@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { takeEvery } from 'redux-saga/effects'
 import { getUserDataHandler } from './Handlers/getUserDataHandler'
 

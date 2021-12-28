@@ -78,12 +78,5 @@
             "typescript": {}
         }
     },
-    "ignorePatterns": [
-        "src/reportWebVitals.ts",
-        "src/service-worker.ts",
-        "src/serviceWorkerRegistration.ts",
-        "src/setupTests.ts",
-        "src/Redux/Saga/GoogleDrive/GoogleDriveSaga.ts",
-        "src/Redux/Saga/GoogleDrive/Requests/userData.ts"
-    ]
+    "ignorePatterns": [ ]
 }
