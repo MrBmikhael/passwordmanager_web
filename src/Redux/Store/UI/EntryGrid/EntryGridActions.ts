@@ -7,13 +7,17 @@ export interface EntryGridAction extends Action {
   current_page: number
   total_pages: number
   items: Record<string, Entry>
+  keyword: string
 }
 
-const entryGridLoadData: ActionCreator<EntryGridAction> = (page: number | null = null) => {
+const entryGridLoadData: ActionCreator<EntryGridAction> = (page: number, keyword: string) => {
   const perPage = 20
   const currentStore = store.getState()
   const category = currentStore.Data.SelectedCategory
-  const keys = Object.keys(currentStore.Data.Passwords[category].entries)
+  const keys = Object.keys(currentStore.Data.Passwords[category].entries).filter((item) => {
+    return currentStore.Data.Passwords[category].entries[item].name.includes(keyword) || currentStore.Data.Passwords[category].entries[item].url.includes(keyword)
+  })
+
   const total_pages = Math.ceil(keys.length / perPage)
   const items: Record<string, Entry> = {}
   let new_current_page: number = page || currentStore.UI.EntryGrid.current_page
@@ -24,9 +28,10 @@ const entryGridLoadData: ActionCreator<EntryGridAction> = (page: number | null =
 
   return {
     type: EntryGridConstants.ENTRY_GRID_LOAD_DATA,
+    current_page: new_current_page,
     total_pages,
     items,
-    current_page: new_current_page
+    keyword
   }
 }
 

@@ -24,6 +24,7 @@ import TextField from '@mui/material/TextField'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import { FormHelperText } from '@mui/material'
 import EntryGridActions from '../../../Redux/Store/UI/EntryGrid/EntryGridActions'
+import Store from '../../../Redux'
 
 interface CreateEntryState {
   username: string
@@ -94,8 +95,9 @@ export const CreateEntry = (props: CreateEntryProps) => {
 
   const handleClose = () => {
     setValues(() => initialState)
+    const currentStore = Store.getState().UI.EntryGrid
     dispatch(GlobalActions.closeAllDialogs())
-    dispatch(EntryGridActions.entryGridLoadData())
+    dispatch(EntryGridActions.entryGridLoadData(currentStore.current_page, currentStore.keyword))
   }
 
   const handleCreateAndClose = () => {

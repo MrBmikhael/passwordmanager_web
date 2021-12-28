@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import { RootState } from '../../Redux'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,6 +16,8 @@ import SearchIcon from '@mui/icons-material/Search'
 import { Logout } from '../LoginWithGoogle/LoginWithGoogle'
 import { LinearProgressBar } from '../LinearProgressBar/LinearProgressBar'
 import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
+import EntryGridActions from '../../Redux/Store/UI/EntryGrid/EntryGridActions'
+import DataActions from '../../Redux/Store/Data/DataActions'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -47,11 +50,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export const MainAppBar = () => {
-
   const state = useSelector((state: RootState) => state.User.Auth.GoogleToken)
   const dispatch = useDispatch()
   let userData = <></>
 
+  const handleSearchChange = (event: React.FormEvent<HTMLDivElement>) => {
+    if (event) {
+      const keyword = _.get(event.target, 'value', '')
+      dispatch(EntryGridActions.entryGridLoadData(1, keyword))
+    }
+  }
   if (state) {
     userData = <>
       <Logout />
@@ -73,7 +81,7 @@ export const MainAppBar = () => {
           <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' }, width: { xs: '0', sm: '30%' } }}>
             Password Manager
           </Typography>
-          <Search sx={{ width: { xs: '70%', sm: '40%' } }}>
+          <Search sx={{ width: { xs: '70%', sm: '40%' } }} onChange={handleSearchChange}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>

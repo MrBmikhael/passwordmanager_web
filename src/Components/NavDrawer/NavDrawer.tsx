@@ -19,6 +19,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import Collapse from '@mui/material/Collapse'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import EntryGridActions from '../../Redux/Store/UI/EntryGrid/EntryGridActions'
+import Store from '../../Redux'
 
 const drawerWidth: number = 240
 
@@ -41,7 +42,7 @@ export const NavDrawer = () => {
   const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, newKey: string) => {
     if (userData.SelectedCategory !== newKey) {
       dispatch(DataActions.CategoryActions.changeSelectedCategory(newKey))
-      dispatch(EntryGridActions.entryGridLoadData(1))
+      dispatch(EntryGridActions.entryGridLoadData(1, Store.getState().UI.EntryGrid.keyword))
     }
   }
 

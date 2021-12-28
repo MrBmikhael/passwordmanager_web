@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid'
 import { RootState } from '../../Redux'
 import { useDispatch, useSelector } from 'react-redux'
 import EntryCard from '../EntryCard/EntryCard'
-import { Pagination, Stack } from '@mui/material'
+import { Pagination, Stack, Typography } from '@mui/material'
 import EntryGridActions from '../../Redux/Store/UI/EntryGrid/EntryGridActions'
 
 const EntryGrid = () => {
@@ -22,7 +22,7 @@ const EntryGrid = () => {
   })
 
   const pageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    dispatch(EntryGridActions.entryGridLoadData(page))
+    dispatch(EntryGridActions.entryGridLoadData(page, entrygridData.keyword))
   }
 
   let pages = <></>
@@ -31,7 +31,12 @@ const EntryGrid = () => {
     pages = <Pagination sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} shape="rounded" variant="outlined" color="primary" showFirstButton showLastButton count={entrygridData.total_pages} page={entrygridData.current_page} boundaryCount={2} onChange={pageChange} />
   }
 
+  if (cards.length === 0) {
+    return <Typography variant="body1" color={'primary'}>No passwords in this category</Typography>
+  }
+
   return (
+
     <Stack spacing={4} >
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
