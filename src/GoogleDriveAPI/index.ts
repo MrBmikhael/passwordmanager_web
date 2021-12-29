@@ -8,15 +8,14 @@ class GoogleDriveAPI {
 
   private axiosInstance: AxiosInstance
 
-  private static instance: GoogleDriveAPI | null = null
-
+  private static instance: GoogleDriveAPI
   private RootFolderID = ''
 
-  public static getInstance(): GoogleDriveAPI | null {
-    const tokenType: string = _.get(store.getState().User.Auth.GoogleToken, 'tokenObj.tokenType', '')
-    const accessToken: string = _.get(store.getState().User.Auth.GoogleToken, 'tokenObj.accessToken', '')
+  public static getInstance(): GoogleDriveAPI {
+    const tokenType: string = _.get(store.getState().User.Auth.GoogleToken, 'tokenObj.token_type', '')
+    const accessToken: string = _.get(store.getState().User.Auth.GoogleToken, 'tokenObj.access_token', '')
 
-    if (this.instance === null && tokenType && accessToken) {
+    if (!this.instance && tokenType && accessToken) {
       this.instance = new GoogleDriveAPI(tokenType, accessToken)
     }
     return this.instance
