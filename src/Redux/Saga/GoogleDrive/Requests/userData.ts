@@ -6,7 +6,7 @@ const initPasswordManager = (): void => {
 }
 
 const getUserData = (): Password[] => {
-  const pm = PasswordManager.getInstance()
+  PasswordManager.getInstance()
   return []
 }
 

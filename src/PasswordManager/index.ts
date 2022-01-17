@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import GoogleDriveAPI, { GDFile } from '../GoogleDriveAPI'
 import store from '../Redux'
-import Password from './Password'
 
 class PasswordManager {
   private static pmInstance: PasswordManager
@@ -57,12 +56,9 @@ class PasswordManager {
   public async getPasswords(): Promise<void> {
     await this.gdInstance.listFilesInFolder(this.folderIds.Passwords).then((fileList) => {
       fileList.forEach(async (file) => {
-        console.log(file)
-        const content = await this.gdInstance.getFileContents(file)
+        await this.gdInstance.getFileContents(file)
       })
     })
-
-    // return [output]
   }
 
   public async deletePassword(id: string, category: string): Promise<void> {
