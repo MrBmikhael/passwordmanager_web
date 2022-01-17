@@ -6,8 +6,6 @@ import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import MoreIcon from '@mui/icons-material/MoreVert'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 
 interface EntryCardProps {
@@ -15,15 +13,14 @@ interface EntryCardProps {
   url: string
   user: string
   pass: string
+  onContextMenuClick: (event: React.MouseEvent<HTMLElement>) => void
 }
 
 interface CardState {
-  anchorEl: null | HTMLElement
   elevation: number
 }
 
 const initialState: CardState = {
-  anchorEl: null,
   elevation: 1
 }
 
@@ -36,57 +33,11 @@ function EntryCard(props: EntryCardProps): React.ReactElement {
     }
   }
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>): void => {
-    setState((pState) => ({ ...pState, anchorEl: event.currentTarget }))
-  }
-
-  const handleClose = (): void => {
-    setState((pState) => ({ ...pState, anchorEl: null }))
-  }
-
-  const handleEditClick = (): void => {
-    handleClose()
-  }
-
-  const handleDeleteClick = (): void => {
-    handleClose()
-  }
-
   const {
-    url, name, user, pass
+    url, name, user, pass, onContextMenuClick
   } = props
 
   const isUrl = (url && url !== 'http://' && url !== 'https://')
-
-  const cardAction = (): React.ReactElement => (
-    <span>
-      <IconButton onClick={handleMenu}>
-        <MoreIcon />
-      </IconButton>
-      <Menu
-        id="menu-appbar"
-        anchorEl={state.anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        open={Boolean(state.anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleEditClick}>
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleDeleteClick}>
-          Delete
-        </MenuItem>
-      </Menu>
-    </span>
-  )
 
   const cardHeader = (): React.ReactElement => {
     if (isUrl) {
@@ -119,7 +70,13 @@ function EntryCard(props: EntryCardProps): React.ReactElement {
             {name.substring(0, 1)}
           </Avatar>
         )}
-        action={cardAction()}
+        action={(
+          <span>
+            <IconButton onClick={onContextMenuClick}>
+              <MoreIcon />
+            </IconButton>
+          </span>
+        )}
         title={<Typography noWrap maxWidth={200}>{name}</Typography>}
         subheader={cardHeader()}
       />
