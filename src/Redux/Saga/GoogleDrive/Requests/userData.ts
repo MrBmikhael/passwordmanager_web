@@ -1,7 +1,13 @@
-/* eslint-disable */
-import GoogleDriveAPI from "../../../../GoogleDriveAPI"
+import PasswordManager from '../../../../PasswordManager'
+import Password from '../../../../PasswordManager/Password'
 
-export async function getUserData() {
-  const api = GoogleDriveAPI.getInstance()
-  return await api.listFiles()
+const initPasswordManager = (): void => {
+  PasswordManager.getInstance().initializeUser()
 }
+
+const getUserData = (): Password[] => {
+  const pm = PasswordManager.getInstance()
+  return []
+}
+
+export { initPasswordManager, getUserData }

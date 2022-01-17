@@ -1,6 +1,7 @@
-const EntryConstants = {
-  CREATE_ENTRY: 'CREATE_ENTRY',
-  DELETE_ENTRY: 'DELETE_ENTRY'
+const PasswordEntryConstants = {
+  CREATE_PASSWORD_ENTRY: 'CREATE_PASSWORD_ENTRY',
+  DELETE_PASSWORD_ENTRY: 'DELETE_PASSWORD_ENTRY',
+  UPDATE_PASSWORD_ENTRY: 'UPDATE_PASSWORD_ENTRY'
 }
 
 const CategoryConstants = {
@@ -9,4 +10,4 @@ const CategoryConstants = {
   CHANGE_SELECTED_CATEGORY: 'CHANGE_SELECTED_CATEGORY'
 }
 
-export const DataConstants = { EntryConstants, CategoryConstants }
+export const DataConstants = { PasswordEntryConstants, CategoryConstants }

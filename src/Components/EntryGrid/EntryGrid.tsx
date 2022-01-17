@@ -16,7 +16,7 @@ function EntryGrid(): React.ReactElement {
     const entry = entrygridData.items[key]
     cards.push(
       <Grid item xs key={entry.id}>
-        <EntryCard name={entry.name} url={entry.url} user={entry.user} pass={entry.pass} />
+        <EntryCard name={entry.name} url={entry.url.toString()} user={entry.user} pass={entry.pass} />
       </Grid>
     )
   })

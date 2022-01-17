@@ -1,12 +1,12 @@
 import { Reducer } from 'redux'
 import EntryGridConstants from './EntryGridConstants'
 import { EntryGridAction } from './EntryGridActions'
-import { Entry } from '../../Data'
+import Password from '../../../../PasswordManager/Password'
 
 export interface EntryGridState {
   currentPage: number
   totalPages: number
-  items: Record<string, Entry>
+  items: Record<string, Password>
   keyword: string
 }
 

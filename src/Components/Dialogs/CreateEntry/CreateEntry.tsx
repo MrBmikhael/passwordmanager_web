@@ -104,7 +104,7 @@ export function CreateEntry(props: CreateEntryProps): React.ReactElement {
 
   const handleCreateAndClose = (): void => {
     if (formValues.username) {
-      dispatch(DataActions.EntryActions.createNewEntry(currentCategory, formValues.username, formValues.password, formValues.url, formValues.name, masterPassword))
+      dispatch(DataActions.EntryActions.createNewPasswordEntry(currentCategory, formValues.username, formValues.password, formValues.url, formValues.name, masterPassword))
     }
     handleClose()
   }

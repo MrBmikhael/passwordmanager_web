@@ -1,12 +1,12 @@
 import { Action, ActionCreator } from 'redux'
-import { Entry } from '../../Data/DataReducer'
+import Password from '../../../../PasswordManager/Password'
 import EntryGridConstants from './EntryGridConstants'
 import store from '../../../index'
 
 export interface EntryGridAction extends Action {
   currentPage: number
   totalPages: number
-  items: Record<string, Entry>
+  items: Record<string, Password>
   keyword: string
 }
 
@@ -16,11 +16,11 @@ const entryGridLoadData: ActionCreator<EntryGridAction> = (page: number, keyword
   const category = currentStore.Data.SelectedCategory
   const keys = Object.keys(currentStore.Data.Passwords[category].entries).filter((item) => (
     currentStore.Data.Passwords[category].entries[item].name.includes(keyword)
-    || currentStore.Data.Passwords[category].entries[item].url.includes(keyword)
+    || currentStore.Data.Passwords[category].entries[item].url.toString().includes(keyword)
   ))
 
   const totalPages = Math.ceil(keys.length / perPage)
-  const items: Record<string, Entry> = {}
+  const items: Record<string, Password> = {}
   const newCurrentPage: number = page || currentStore.UI.EntryGrid.currentPage
 
   keys.slice((newCurrentPage - 1) * perPage, newCurrentPage * perPage).forEach((key: string) => {

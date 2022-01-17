@@ -15,7 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { SnackbarAlertStatus } from '../../Redux/Store/UI/Snackbar/SnackbarConstants'
 import SnackbarActions from '../../Redux/Store/UI/Snackbar/SnackbarActions'
 import AuthActions from '../../Redux/Store/User/Auth/AuthActions'
-import GoogleDriveAPI from '../../GoogleDriveAPI'
+import PasswordManager from '../../PasswordManager'
 
 export const scopes = [
   'https://www.googleapis.com/auth/drive.file',
@@ -32,10 +32,9 @@ const GoogleLoginProps = {
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void): void => {
   dispatch(AuthActions.loginUsingGoogle(response))
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
-  const gdrive = GoogleDriveAPI.getInstance()
-  if (gdrive) {
-    gdrive.createInitialFiles()
-  }
+  PasswordManager.getInstance().initializeUser().then(() => {
+    PasswordManager.getInstance().getPasswords()
+  })
 }
 
 const onFailure = (response: GoogleLoginResponse, dispatch: (arg0: any) => void): void => {
