@@ -20,7 +20,9 @@ export interface GDFileList {
 
 class GoogleDriveAPI {
   private API_KEY: string = _.get(process.env, 'REACT_APP_GOOGLE_API_KEY', '')
+
   private axiosInstance: AxiosInstance
+
   private static instance: GoogleDriveAPI
 
   public static getInstance(): GoogleDriveAPI {
@@ -42,7 +44,6 @@ class GoogleDriveAPI {
     })
   }
 
-  // return GDFile[]
   public async listFiles(includeDeleted = false, extraParams?: any): Promise<GDFile[]> {
     const params = {
       ...extraParams
@@ -55,6 +56,12 @@ class GoogleDriveAPI {
     params.fields = 'files(kind,id,name,mimeType,parents)'
     const fileList: GDFileList = (await this.axiosInstance('files', { params })).data
     return fileList.files
+  }
+
+  public async watchFileChanges(file: GDFile): Promise<void> {
+    await this.axiosInstance(`files/${file.id}/watch`, {
+      method: 'POST'
+    })
   }
 
   private async uploadFile(fileName: string, content: string, meta: any, fileID: string): Promise<GDFile> {
@@ -97,7 +104,7 @@ class GoogleDriveAPI {
       if (file) {
         resolve(file)
       }
-      reject(new Error("File not found"))
+      reject(new Error('File not found'))
     })
   }
 
@@ -109,7 +116,7 @@ class GoogleDriveAPI {
   public async getFileContents(file: GDFile): Promise<string> {
     const output = (await this.axiosInstance(`files/${file.id}`, {
       params: {
-        'alt': 'media'
+        alt: 'media'
       }
     }))
     return output.data
@@ -126,12 +133,10 @@ class GoogleDriveAPI {
     const output = _.filter(allFiles, (item) => JSON.stringify(item.parents).includes(folderID))
     if (output) {
       return output
-    } else {
-      return []
     }
+    return []
   }
 
-  // return GDFile
   public async createFolder(folderName: string, extraParams?: any): Promise<GDFile> {
     return this.createFile(folderName, { ...extraParams, mimeType: 'application/vnd.google-apps.folder' })
   }

@@ -76,7 +76,10 @@ export function MasterPassword(props: MasterPasswordProps): React.ReactElement {
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"
-              type="text"
+              type="password"
+              autoFocus
+              aria-autocomplete="none"
+              autoComplete="new-password"
               value={values.password}
               onChange={handleChange}
             />

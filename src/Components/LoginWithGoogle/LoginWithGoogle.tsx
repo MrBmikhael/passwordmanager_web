@@ -16,6 +16,7 @@ import { SnackbarAlertStatus } from '../../Redux/Store/UI/Snackbar/SnackbarConst
 import SnackbarActions from '../../Redux/Store/UI/Snackbar/SnackbarActions'
 import AuthActions from '../../Redux/Store/User/Auth/AuthActions'
 import PasswordManager from '../../PasswordManager'
+import GlobalActions from '../../Redux/Store/UI/Global/GlobalActions'
 
 export const scopes = [
   'https://www.googleapis.com/auth/drive.file',
@@ -32,8 +33,14 @@ const GoogleLoginProps = {
 const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline, dispatch: (arg0: any) => void): void => {
   dispatch(AuthActions.loginUsingGoogle(response))
   dispatch(SnackbarActions.viewSnackbarAlert(SnackbarAlertStatus.success, 'Google Login Successful'))
+
   PasswordManager.getInstance().initializeUser().then(() => {
+    // Ask for master password
+    dispatch(GlobalActions.openMasterPasswordDialog())
     PasswordManager.getInstance().getPasswords()
+  }).catch(() => {
+    // Create a master password
+    dispatch(GlobalActions.openSetNewUserDialog())
   })
 }
 

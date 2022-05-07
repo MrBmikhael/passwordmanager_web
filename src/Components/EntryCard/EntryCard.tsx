@@ -9,6 +9,7 @@ import MoreIcon from '@mui/icons-material/MoreVert'
 import Link from '@mui/material/Link'
 
 interface EntryCardProps {
+  id: string
   name: string
   url: string
   user: string
@@ -34,7 +35,7 @@ function EntryCard(props: EntryCardProps): React.ReactElement {
   }
 
   const {
-    url, name, user, pass, onContextMenuClick
+    id, url, name, user, pass, onContextMenuClick
   } = props
 
   const isUrl = (url && url !== 'http://' && url !== 'https://')
@@ -72,7 +73,7 @@ function EntryCard(props: EntryCardProps): React.ReactElement {
         )}
         action={(
           <span>
-            <IconButton onClick={onContextMenuClick}>
+            <IconButton id={id} onClick={onContextMenuClick}>
               <MoreIcon />
             </IconButton>
           </span>

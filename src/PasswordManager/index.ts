@@ -17,6 +17,15 @@ class PasswordManager {
     this.gdInstance = GoogleDriveAPI.getInstance()
   }
 
+  public isNewUser(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.gdInstance.listFiles().then((fileList) => {
+        if (fileList.length === 0) { resolve(false) }
+        resolve(true)
+      })
+    })
+  }
+
   public initializeUser(): Promise<void> {
     return this.gdInstance.listFiles().then((fileList) => {
       if (fileList.length === 0) {
@@ -33,7 +42,7 @@ class PasswordManager {
           if (filesFolder) {
             this.folderIds.Files = filesFolder.id
           } else {
-            this.gdInstance.createFolder(folderName, { parents: [this.folderIds[this.rootFolderName]] }).then((folder: GDFile) => {
+            this.gdInstance.createFolder(folderName, { parents: [this.folderIds[this.rootFolderName]].toString() }).then((folder: GDFile) => {
               this.folderIds[folder.name] = folder.id
             })
           }
@@ -54,7 +63,7 @@ class PasswordManager {
   }
 
   public async getPasswords(): Promise<void> {
-    await this.gdInstance.listFilesInFolder(this.folderIds.Passwords).then((fileList) => {
+    return this.gdInstance.listFilesInFolder(this.folderIds.Passwords).then((fileList) => {
       fileList.forEach(async (file) => {
         await this.gdInstance.getFileContents(file)
       })
@@ -62,7 +71,7 @@ class PasswordManager {
   }
 
   public async deletePassword(id: string, category: string): Promise<void> {
-    await this.gdInstance.deleteFile((await this.gdInstance.getFileByName(`${id}${category}`)).id)
+    return this.gdInstance.deleteFile((await this.gdInstance.getFileByName(`${id}${category}`)).id)
   }
 
   public async getRootFolder(): Promise<string> {
@@ -82,8 +91,11 @@ class PasswordManager {
         this.gdInstance.putFile('DO NOT EDIT ANYTHING IN THIS FOLDER', '', root.id),
         this.gdInstance.putFile('Settings.enc.txt', JSON.stringify(store.getState().User.Settings), root.id)
       ]).then((data) => {
-        this.folderIds[data[0].name] = data[0].id
-        this.folderIds[data[1].name] = data[1].id
+        data.forEach((file) => {
+          if (file.mimeType === 'application/vnd.google-apps.folder') {
+            this.folderIds[file.name] = file.id
+          }
+        })
       })
     })
   }

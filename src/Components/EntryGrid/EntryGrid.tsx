@@ -30,11 +30,13 @@ function EntryGrid(): React.ReactElement {
   }
 
   const onContextEdit = (): void => {
-    // Open Edit Modal
+    // const key = state.anchorEl?.getAttribute('id')
+    onContextClose()
   }
 
   const onContextDelete = (): void => {
-    // Delete Confirm Modal
+    // const key = state.anchorEl?.getAttribute('id')
+    onContextClose()
   }
 
   const cards: React.ReactNode[] = []
@@ -42,7 +44,7 @@ function EntryGrid(): React.ReactElement {
     const entry = entrygridData.items[key]
     cards.push(
       <Grid item xs key={entry.id}>
-        <EntryCard name={entry.name} url={entry.url.toString()} user={entry.user} pass={entry.pass} onContextMenuClick={onContextMenuClick} />
+        <EntryCard id={entry.id} name={entry.name} url={entry.url.toString()} user={entry.user} pass={entry.pass} onContextMenuClick={onContextMenuClick} />
       </Grid>
     )
   })
