@@ -26,10 +26,10 @@ const createNewPasswordEntry: ActionCreator<DataAction> = (categoryName: string,
   const nowDate = new Date()
   const newPasswordEntry: Password = {
     name,
+    url,
     id: randomID,
     user: AES.encrypt(entryUser, masterPassword),
     pass: AES.encrypt(entryPass, masterPassword),
-    url: new URL(url),
     created: nowDate,
     updated: nowDate
   }
@@ -46,7 +46,7 @@ const deletePasswordEntry: ActionCreator<DataAction> = (categoryName: string, en
   type: DataConstants.PasswordEntryConstants.DELETE_PASSWORD_ENTRY, categoryName, entryId
 })
 
-const updatePasswordEntry: ActionCreator<DataAction> = (categoryName: string, entryId: string, name: string, user: string, pass: string, url: URL) => {
+const updatePasswordEntry: ActionCreator<DataAction> = (categoryName: string, entryId: string, name: string, user: string, pass: string, url: string) => {
   const state = store.getState()
   const updatedPasswordEntry: Password = state.Data.Passwords[state.Data.SelectedCategory].entries[entryId]
   updatedPasswordEntry.name = name
