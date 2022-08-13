@@ -2,15 +2,15 @@
   "files": {
     "main.js": "/passwordmanager_web/static/js/main.f425aed1.chunk.js",
     "runtime-main.js": "/passwordmanager_web/static/js/runtime-main.afd7f5f2.js",
-    "static/js/2.4a1700db.chunk.js": "/passwordmanager_web/static/js/2.4a1700db.chunk.js",
+    "static/js/2.3fe867c3.chunk.js": "/passwordmanager_web/static/js/2.3fe867c3.chunk.js",
     "static/js/3.d7e6b7e6.chunk.js": "/passwordmanager_web/static/js/3.d7e6b7e6.chunk.js",
     "index.html": "/passwordmanager_web/index.html",
     "service-worker.js": "/passwordmanager_web/service-worker.js",
-    "static/js/2.4a1700db.chunk.js.LICENSE.txt": "/passwordmanager_web/static/js/2.4a1700db.chunk.js.LICENSE.txt"
+    "static/js/2.3fe867c3.chunk.js.LICENSE.txt": "/passwordmanager_web/static/js/2.3fe867c3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.afd7f5f2.js",
-    "static/js/2.4a1700db.chunk.js",
+    "static/js/2.3fe867c3.chunk.js",
     "static/js/main.f425aed1.chunk.js"
   ]
 }
