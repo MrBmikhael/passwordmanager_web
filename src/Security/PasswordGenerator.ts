@@ -63,7 +63,7 @@ export const generatePassword = (props: PasswordGeneratorProps): string => {
   return pass
 }
 
-export const checkPasswordStrength = (password: string):PasswordStrength => {
+export const checkPasswordStrength = (password: string): PasswordStrength => {
   const strengthOptions: Options<string> = [
     {
       id: 0,
