@@ -62,4 +62,8 @@ function GlobalAlertSnackbar(): React.ReactElement {
   return <span />
 }
 
+AlertSnackbar.defaultProps = {
+  delay: 200
+}
+
 export { GlobalAlertSnackbar, AlertSnackbar }
