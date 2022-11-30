@@ -205,3 +205,7 @@ export function CreateEntry(props: CreateEntryProps): React.ReactElement {
     </div>
   )
 }
+
+CreateEntry.defaultProps = {
+  values: undefined
+}

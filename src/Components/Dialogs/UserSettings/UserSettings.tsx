@@ -56,16 +56,14 @@ export function UserSettings(props: UserSettingsProps): React.ReactElement {
     const { id } = changeEvent.currentTarget
     const value = _.get(changeEvent.target, 'value')
 
-    if (id === 'length') {
-      if (Number(value)) {
-        setValues({
-          ...values,
-          passwordGenerator: {
-            ...values.passwordGenerator,
-            [id]: Utils.forceRange(value, valueRanges.length.min, valueRanges.length.max)
-          }
-        })
-      }
+    if (id === 'length' && value !== 0) {
+      setValues({
+        ...values,
+        passwordGenerator: {
+          ...values.passwordGenerator,
+          [id]: Utils.forceRange(value, valueRanges.length.min, valueRanges.length.max)
+        }
+      })
     } else if (id === 'exclude') {
       setValues({
         ...values,
