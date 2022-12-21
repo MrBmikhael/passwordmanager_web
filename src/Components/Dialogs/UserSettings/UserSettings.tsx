@@ -54,7 +54,7 @@ export function UserSettings(props: UserSettingsProps): React.ReactElement {
 
   const handlePasswordGeneratorChange = (changeEvent: React.ChangeEvent<HTMLInputElement> | React.SyntheticEvent<Element, Event>, checked?: boolean): void => {
     const { id } = changeEvent.currentTarget
-    const value = _.get(changeEvent.target, 'value')
+    const value = Number(_.get(changeEvent.target, 'value'))
 
     if (id === 'length' && value !== 0) {
       setValues({
