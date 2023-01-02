@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTimeout } from 'usehooks-ts'
 import { useDispatch, useSelector } from 'react-redux'
 import { Stack, Typography } from '@mui/material'
 import { Navigator } from './Navigator/Navigator'
