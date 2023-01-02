@@ -29,9 +29,9 @@ function MainAppContent(): React.ReactElement {
 function App(): React.ReactElement {
   const dispatch = useDispatch()
   useLogin()
-  useTimeout(() => {
-    dispatch(GlobalActions.endAppLoading())
-  }, 3000)
+  // useTimeout(() => {
+  dispatch(GlobalActions.endAppLoading())
+  // }, 3000)
 
   const loadingState = useSelector((state: RootState) => state.UI.Global.AppLoading)
 
