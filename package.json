@@ -22,7 +22,7 @@
     "@types/redux-logger": "^3.0.9",
     "@types/secure-random-password": "^0.2.1",
     "@typescript-eslint/parser": "^5.48.1",
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
     "axios": "^0.27.2",
     "check-password-strength": "^2.0.3",
     "commitizen": "^4.3.0",
