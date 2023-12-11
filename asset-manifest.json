@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/passwordmanager_web/static/js/main.0b3cecdd.js",
+    "main.js": "/passwordmanager_web/static/js/main.d639aef5.js",
     "static/js/27.0e7b7d55.chunk.js": "/passwordmanager_web/static/js/27.0e7b7d55.chunk.js",
     "service-worker.js": "/passwordmanager_web/service-worker.js",
     "index.html": "/passwordmanager_web/index.html"
   },
   "entrypoints": [
-    "static/js/main.0b3cecdd.js"
+    "static/js/main.d639aef5.js"
   ]
 }
