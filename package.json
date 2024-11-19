@@ -27,7 +27,7 @@
     "check-password-strength": "^2.0.3",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.32.0",
+    "eslint": "^9.15.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-react": "^7.31.10",
